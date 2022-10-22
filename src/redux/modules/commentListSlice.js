@@ -41,50 +41,49 @@ export const __getComments = createAsyncThunk(
 );
 
 // ** deleteComment **
-export const __deleteComments = createAsyncThunk (
+export const __deleteComments = createAsyncThunk(
   "commentList/deleteComments",
   async (commentId, thunkAPI) => {
     try {
-      await axios.delete("url"/${id});
+      await axios.delete("url");
       return thunkAPI.fulfillWithValue(commentId);
-    } catch(error){
+    } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
-)
-
+);
 
 // ** editComment **
 export const __editComments = createAsyncThunk(
   "commentList/editComments",
-  async(commentId, thunkAPI) => {
+  async (commentId, thunkAPI) => {
     try {
       //commentId.id = id들 중에 id하나.
-      await axios.patch('url/${commentId.id}',commentId);
-    } catch(error) {
-      return thunkAPI.rejectWithValue(error)
+      await axios.patch("url/${commentId.id}", commentId);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
     }
   }
-)
+);
 
 //reducer, extrareducers
 
 const commentListSlice = createSlice({
-  name : "commentList",
+  name: "commentList",
   initialState,
   reducers: {},
   extraReducers: {
-   // ** addComments ** //
-    [__addComments.pending] : (state) => {
+    // ** addComments ** //
+    [__addComments.pending]: (state) => {
       state.isLoading = true;
-    }
-   // ** getComments ** //
+    },
+    // ** getComments ** //
 
-   // ** patchComments ** //
+    // ** patchComments ** //
 
-   // ** deleteComments ** //
+    // ** deleteComments ** //
   },
-})
+});
 
 //export
 

@@ -3,6 +3,7 @@ import Home from "../pages/Home";
 import BoardList from "../pages/BoardList";
 import DetailBoard from "../pages/DetailBoard";
 import Mypage from "../pages/Mypage";
+import AddBoard from "../pages/AddBoard";
 
 function Router() {
   return (
@@ -13,8 +14,8 @@ function Router() {
         <Route path="/board-list" element={<BoardList />} />
 
         {/* detailboard추가. */}
-        <Route path="/detail/:id"> element={<DetailBoard />}</Route>
-        <Route path="/add-board"> element={<AddBoard />}</Route>
+        <Route path="/detail/:id" element={<DetailBoard />} />
+        <Route path="/add-board" element={<AddBoard />} />
         <Route path="/mypage" element={<Mypage />} />
       </Routes>
     </BrowserRouter>

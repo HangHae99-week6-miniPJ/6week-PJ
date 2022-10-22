@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
+import LabelBottomNavigation from "../components/header/LabelBottomNavigation";
+import Nav from "../components/header/Nav";
 
 function BoardList() {
   const navigate = useNavigate();
@@ -8,7 +9,8 @@ function BoardList() {
   return (
     <>
       <div>
-        <Header />
+        <LabelBottomNavigation />
+        <Nav />
       </div>
       {/* <button
         onClick={() => {

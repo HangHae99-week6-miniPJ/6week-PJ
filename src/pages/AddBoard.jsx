@@ -1,6 +1,9 @@
 import { shallowEqual, useDispatch } from "react-redux";
 import { initializeConnect } from "react-redux/es/components/connect";
 import { useNavigate } from "react-router-dom";
+import LabelBottomNavigation from "../components/header/LabelBottomNavigation";
+import Nav from "../components/header/Nav";
+import Layout from "../components/layout/Layout";
 
 const AddBoard = () => {
   const dispatch = useDispatch();
@@ -11,11 +14,11 @@ const AddBoard = () => {
     body: "",
   };
 
-  const [addBoard, setAddBoard] = useState(initialState);
+  //const [addBoard, setAddBoard] = useState(initialState);
 
   const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-    setAddBoard({ ...AddBoard, [name]: value });
+    // const { name, value } = e.target;
+    // setAddBoard({ ...AddBoard, [name]: value });
   };
 
   const onSubmitHandler = (e) => {
@@ -23,20 +26,21 @@ const AddBoard = () => {
     // if( addBoard.username === "" || addBoard.title === "" || addBoard.body === "") {
     // }
     // Dispatch해서 thunk로 보낸다. 글쓰기 add에다가 보내야됨.
-    dispatch(__onAddsth({ ...addBoard, id: Date.now() }));
-    setAddBoard(initialState);
+    // dispatch(__onAddsth({ ...addBoard, id: Date.now() }));
+    // setAddBoard(initialState);
     //이거 nav탭에 박을건데 어디서눌리든 글쓰기해서 홈? 그 전으로돌아가는 기능 필요한듯.
     //window.history.back???이거쓰면되나.
-    navigate("/");
+    // navigate("/");
   };
 
   return (
     <>
       <Layout>
-        <Header />
+        <LabelBottomNavigation />
+        <Nav />
         {/* 제목이랑 내용만 있으면 되니까... */}
         {/* 이거 로그인하면 어떻게 바꿔야하나?? */}
-        <AddForm>
+        {/* <AddForm>
           <input
             type="text"
             name="username"
@@ -61,7 +65,7 @@ const AddBoard = () => {
             placeholder="내용을 입력해 주세요."
           />
           <button onClick={onSubmitHandler}>추가하기</button>
-        </AddForm>
+        </AddForm> */}
       </Layout>
     </>
   );

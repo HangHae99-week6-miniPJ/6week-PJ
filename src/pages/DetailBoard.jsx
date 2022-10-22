@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Card from "../components/Card";
-import Header from "../components/Header";
+import LabelBottomNavigation from "../components/header/LabelBottomNavigation";
+import Nav from "../components/header/Nav";
 
 const DetailBoard = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const DetailBoard = () => {
   //data get으로 받아옴.
   //useEffect사용.
 
-  const onEditHandler = () => {
+  const onEditHandler = (e) => {
     e.preventDefault();
     //빈칸유효성검사, sweetalret2로 alret사용.
 
@@ -27,7 +28,7 @@ const DetailBoard = () => {
     setIsEdit(false);
   };
 
-  const onDeleteHandler = () => {
+  const onDeleteHandler = (e) => {
     e.stopPropagation();
     //sweetalret2사용. -> 다운로드필요.
     //삭제후 홈으로돌아가게.
@@ -38,8 +39,22 @@ const DetailBoard = () => {
 
   return (
     <div>
-      <Header></Header>
-      <BtnBox>
+      <LabelBottomNavigation />
+      <Nav />
+    </div>
+  );
+};
+
+export default DetailBoard;
+
+{
+  /* 버튼 클릭하면 isEdit상태에 따라 보여지는 아이콘이 다르게 세팅. */
+}
+{
+  /* false상태가 취소, true상태가 세팅키 */
+}
+{
+  /* <BtnBox>
         <div>Username : {todo?.username}</div>
         <div>
           <Button
@@ -47,8 +62,7 @@ const DetailBoard = () => {
               setIsEdit((prev) => !prev);
             }}
           >
-            {/* 버튼 클릭하면 isEdit상태에 따라 보여지는 아이콘이 다르게 세팅. */}
-            {/* false상태가 취소, true상태가 세팅키 */}
+          
             {isEdit ? <FcCancel /> : <FcSettings />}
           </Button>
           <Button onClick={onDeleteHandler}>
@@ -61,8 +75,10 @@ const DetailBoard = () => {
           <p>userid</p>
           <p>body</p>
         </div>
-      ) : null}
-
+      ) : null} */
+}
+{
+  /* 
       {isEdit ? (
         <FormBox>
           <input
@@ -78,10 +94,13 @@ const DetailBoard = () => {
         </FormBox>
       ) : null}
       <h2> 댓글 </h2>
-      {/* AddCommentForm/ */}
-      {/* CommentList */}
-    </div>
-  );
-};
+    
+    </div> */
+}
 
-export default DetailBoard;
+{
+  /* AddCommentForm/ */
+}
+{
+  /* CommentList */
+}
