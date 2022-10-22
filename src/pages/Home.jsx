@@ -1,8 +1,12 @@
 import React from "react";
-import Layout from "../components/layout/Layout";
+import Login from "../components/login/Login";
 
 function Home() {
-  return <Layout>레이아웃</Layout>;
+  return (
+    <>
+      <Login />
+    </>
+  );
 }
 
 export default Home;

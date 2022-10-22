@@ -2,6 +2,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
 import BoardList from "../pages/BoardList";
 import DetailBoard from "../pages/DetailBoard";
+import Mypage from "../pages/Mypage";
 
 function Router() {
   return (
@@ -14,6 +15,7 @@ function Router() {
         {/* detailboard추가. */}
         <Route path="/detail/:id"> element={<DetailBoard />}</Route>
         <Route path="/add-board"> element={<AddBoard />}</Route>
+        <Route path="/mypage" element={<Mypage />} />
       </Routes>
     </BrowserRouter>
   );
