@@ -1,0 +1,22 @@
+{
+  "posts": [
+    {
+      "username": "여기작성자",
+      "title": "제목입력",
+      "body": "내용입력",
+      "id": 1666454211166
+    },
+    {
+      "username": "asdf",
+      "title": "adf",
+      "body": "asdf",
+      "id": 1666458825016
+    },
+    {
+      "username": "asdasdasd",
+      "title": "qwdqwdqwdqw",
+      "body": "zxczxvzxvadvsdv",
+      "id": 1666458857651
+    }
+  ]
+}

@@ -7,9 +7,11 @@ import LibraryBooksSharpIcon from "@mui/icons-material/LibraryBooksSharp";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function LabelBottomNavigation() {
   const [value, setValue] = React.useState("recents");
+  const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -30,11 +32,18 @@ export default function LabelBottomNavigation() {
         <BottomNavigationAction
           label="갓생 게시판"
           value="recents"
+          onClick={() => {
+            navigate("/board-list");
+          }}
           icon={<LibraryBooksSharpIcon />}
         />
+
         <BottomNavigationAction
           label="갓생 작성하기"
           value="favorites"
+          onClick={() => {
+            navigate("/add-board");
+          }}
           icon={<LibraryAddSharpIcon />}
         />
         <BottomNavigationAction
