@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
+import { __getComments } from "../../redux/modules/commentListSlice";
+import Comment from "./Comment";
 
 const CommentList = () => {
   const { id } = useParams();
@@ -11,10 +14,24 @@ const CommentList = () => {
     dispatch(__getComments());
   }, [dispatch]);
 
+  console.log(comments);
   return (
-    <div>
-      {/* map, get해온 coomentDB활용해서 카드찍어라.ㅎ. */}
-      {/* 삼항연산자 활용해서 , 옵셔널체이닝없이? */}
-    </div>
+    <Commentblock>
+      {comments.map((comment) => {
+        return comment.postId == Number(id) ? (
+          <Comment key={comment.id} comment={comment}>
+            댓글
+          </Comment>
+        ) : (
+          "이건가?"
+        );
+      })}
+    </Commentblock>
   );
 };
+
+export default CommentList;
+
+const Commentblock = styled.div`
+  height: 200px;
+`;

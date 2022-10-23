@@ -14,7 +14,7 @@ function BoardList() {
 
   useEffect(() => {
     dispatch(__getPosts());
-    console.log("hello");
+    //console.log("hello");
   }, [dispatch]);
 
   console.log(posts);

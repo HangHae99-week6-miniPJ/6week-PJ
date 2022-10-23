@@ -47,6 +47,25 @@ export const __deletePosts = createAsyncThunk(
   }
 );
 
+// ** Thunk editPosts ** //
+export const __editPosts = createAsyncThunk(
+  "posts/editPosts",
+  //postId는 payload로 username,title,body,id를 모두가지고 있는 "객체"다.
+  async (postId, thunkAPI) => {
+    //console.log("postID", postId);
+    try {
+      const { data } = await axios.patch(
+        //postId에 담긴 객체값을 전부 업데이트한다.
+        `http://localhost:3001/posts/${postId.id}`,
+        postId
+      );
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 // ** Reducer / extraReducers ** //
 const postsSlice = createSlice({
   name: "posts",
@@ -84,6 +103,21 @@ const postsSlice = createSlice({
       const bye = state.posts.findIndex((post) => post.id === action.payload);
       //id일치시켜서삭제
       state.posts.splice(bye, 1);
+    },
+
+    //게시글 수정
+    [__editPosts.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__editPosts.fulfilled]: (state, action) => {
+      const target = state.posts.findIndex(
+        (post) => post.id === action.payload.id
+      );
+      state.posts.splice(target, 1, action.payload);
+    },
+    [__editPosts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.posts = action.payload;
     },
   },
 });
