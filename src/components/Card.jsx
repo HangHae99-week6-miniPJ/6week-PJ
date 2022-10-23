@@ -1,21 +1,29 @@
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { __deletePosts, __getPosts } from "../redux/modules/postsSlice";
 
-const Card = () => {
+const Card = ({ post }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const onDeleteHandler = (e) => {
+    dispatch(__deletePosts(post.id));
+  };
+
   return (
     <div>
-      onClick=
-      {() => {
-        // id받아올게없어서 힘든데 json목업이라도?
-        //   navigate(`/detail/${받아온id}`);
-      }}
-      {/*props로 받아온 title,contents,id를 보여준다. 프로필사진포함인데.. */}
-      <div>{title}</div>
-      <div>{body}</div>
-      <div>{id}</div>
+      <div>{post.title}</div>
+      <div>{post.body}</div>
+      <div>{post.username}</div>
+      <button
+        onClick={() => {
+          navigate(`/detail/${post.id}`);
+        }}
+      >
+        수정하러갑니다.
+      </button>
+      <button onClick={onDeleteHandler}>삭제하기</button>
     </div>
   );
 };
