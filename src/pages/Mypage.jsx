@@ -9,7 +9,7 @@ function Mypage() {
     <div>
       <Nav />
       <Layout>
-        <Mymenu>회원 정보 수정하기 \ 나의 찜 목록 확인하기</Mymenu>
+        <Mymenu />
         <Myprofie />
         <Mypick />
       </Layout>

@@ -2,6 +2,8 @@ import styled from "styled-components";
 import FormDialog from "./FormDialog.jsx";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import { Outline } from "../../shared/Outline";
+import { Flexbox } from "../../shared/Flexbox.jsx";
 
 function Login() {
   return (
@@ -11,13 +13,13 @@ function Login() {
         <StForm as="form">
           <StLogin>
             <TextField
-              id="outlined-basic"
+              // id="outlined-basic"
               label="아이디"
               variant="outlined"
               type="text"
             />
             <TextField
-              id="outlined-basic"
+              // id="outlined-basic"
               label="비밀번호"
               variant="outlined"
               type="password"
@@ -44,25 +46,18 @@ const StForm = styled.form`
 
 /*전체 박스*/
 const Stbox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ${Flexbox}
 `;
 
 /*로그인박스*/
 const StLogin = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${Flexbox}
   gap: 10px;
 `;
 
 /*전체 로그인박스*/
 const StSingup = styled.div`
-  border: 2px solid #ececec;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  ${Outline};
+  ${Flexbox}
   padding-bottom: 10px;
-  border-radius: 10px;
 `;

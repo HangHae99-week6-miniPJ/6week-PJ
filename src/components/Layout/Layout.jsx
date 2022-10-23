@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Outline } from "../../shared/Outline";
 
 function Layout({ children }) {
   return <StLayout>{children}</StLayout>;
@@ -8,10 +9,8 @@ function Layout({ children }) {
 export default Layout;
 
 const StLayout = styled.div`
-  border: 2px solid #ececec;
-  border-radius: 10px;
+  ${Outline}
   max-width: 1200px;
   min-width: 800px;
   margin: auto;
-  padding: 10px;
 `;

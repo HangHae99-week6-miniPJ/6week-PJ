@@ -49,6 +49,7 @@ export default function LabelBottomNavigation() {
 
 /*로그아웃 박스 */
 const TestDiv = styled.div`
+  margin-top: 20px;
   display: flex;
   justify-content: flex-end;
 `;
