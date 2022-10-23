@@ -43,13 +43,13 @@ MuButton.defaultProps = {
   _onClick: () => {},
   _width: "120px",
   _padding: "12px",
-  _bgColor: "#2c61e8",
+  _bgColor: "#19A8F1",
   _color: "#ffffff",
   _fontSize: "1rem",
   borderRadius: "10px",
   _fontWeight: "500",
   _hoverColor: "#ffffff",
-  _hoverBgColor: "#648cf3",
+  _hoverBgColor: "#7ecff7",
   _border: "none",
 };
 

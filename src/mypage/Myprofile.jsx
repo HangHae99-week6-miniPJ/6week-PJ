@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import MuButton from "../components/elem/MuButton";
+
 import { Flexbox } from "../shared/Flexbox";
 import { Outline } from "../shared/Outline";
+import MyBox from "./MyBox";
 
 const btnStyle1 = {
   _padding: "8px",
@@ -11,18 +13,15 @@ const btnStyle1 = {
 const btnStyle2 = {
   _padding: "8px",
   _margin: "20px",
-  _border: "2px solid #1B76D2",
+  _border: "2px solid #19A8F1",
   _bgColor: "#ffffff",
-  _color: "#1B76D2",
+  _color: "#19A8F1",
   _hoverBgColor: "#d5d5d5",
 };
 
 function Myprofile() {
   return (
-    <ProfBox>
-      <ProfTitle>
-        <p>회원 정보 수정하기 🔐</p>
-      </ProfTitle>
+    <MyBox>
       <UserForm as="form">
         <ListBox>
           <BeforeBox>
@@ -35,41 +34,32 @@ function Myprofile() {
             <UserIdSt>@유저아이디</UserIdSt>
           </BeforeBox>
           <InputBox>
-            <label>프로필 사진 변경</label>
+            <p>프로필 사진 변경</p>
             <input type="file" />
-            <label>닉네임 변경</label>
-            <input type="text" />
+            <p>닉네임 변경</p>
+            <input
+              type="text"
+              placeholder=" 변경할 닉네임을 작성해주세요. (1-10자이내)"
+              minLength="1"
+              maxLength="10"
+            />
           </InputBox>
         </ListBox>
         <ButtonBox>
           <MuButton {...btnStyle1}>수정하기</MuButton>
-          <MuButton {...btnStyle2} type="button">
-            돌아가기
-          </MuButton>
+          <MuButton {...btnStyle2}>돌아가기</MuButton>
         </ButtonBox>
       </UserForm>
-    </ProfBox>
+    </MyBox>
   );
 }
 
 export default Myprofile;
 
-/*프로필 박스*/
-const ProfBox = styled.div`
-  ${Outline};
-`;
-/*회원정보 수정 타이틀*/
-const ProfTitle = styled.div`
-  p {
-    font-weight: bolder;
-    font-size: 3rem;
-    margin-left: 20px;
-  }
-`;
 /*닉네임*/
 const UserNickSt = styled.span`
   font-size: 1.5rem;
-  font-weight: bolder;
+  font-weight: 700;
   margin-left: 10px;
 `;
 
@@ -87,16 +77,27 @@ const BeforeBox = styled.div`
 
 /*회원정보 수정박스*/
 const InputBox = styled.div`
-  background-color: aqua;
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  input {
+    ${Outline};
+    font-size: 16px;
+  }
+
+  p {
+    margin-left: 15px;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
 `;
 
 /*수정 + 기존 정보 정렬*/
 const ListBox = styled.div`
   display: flex;
   gap: 100px;
+  margin-top: 50px;
 `;
 
 /*회원정보 폼 박스*/

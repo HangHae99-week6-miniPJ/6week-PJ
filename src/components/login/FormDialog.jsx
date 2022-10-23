@@ -35,7 +35,7 @@ export default function FormDialog() {
             type="text"
             fullWidth
             variant="standard"
-            placeholder="8글자 이하로 작성해주세요."
+            placeholder="닉네임을 작성해주세요. (1-10자이내)"
           />
           <Button>닉네임 검사</Button>
           <TextField
