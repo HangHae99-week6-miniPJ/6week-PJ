@@ -2,6 +2,7 @@ import { useState } from "react";
 import { shallowEqual, useDispatch } from "react-redux";
 import { initializeConnect } from "react-redux/es/components/connect";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 import LabelBottomNavigation from "../components/header/LabelBottomNavigation";
 import Nav from "../components/header/Nav";
 import Layout from "../components/layout/Layout";
@@ -43,7 +44,7 @@ const AddBoard = () => {
       <Layout>
         <Nav />
 
-        <form>
+        <FormBox>
           <input
             type="text"
             name="username"
@@ -68,10 +69,48 @@ const AddBoard = () => {
             placeholder="내용을 입력해 주세요."
           />
           <button onClick={onSubmitHandler}>추가하기</button>
-        </form>
+        </FormBox>
       </Layout>
     </>
   );
 };
 
 export default AddBoard;
+
+const FormBox = styled.form`
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  input {
+    font-size: 28px;
+    height: 35px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    border: none;
+    border-bottom: 2px solid #aaa;
+    border-right: 2px solid #aaa;
+    margin-bottom: 35px;
+  }
+  textarea {
+    height: 100px;
+    font-size: 20px;
+    padding: 8px;
+    border: none;
+    border-bottom: 2px solid #aaa;
+    border-right: 2px solid #aaa;
+  }
+  button {
+    background-color: #aaa;
+    min-width: 30px;
+    min-height: 30px;
+    width: 13%;
+    height: 10%;
+    border-radius: 5px;
+    border: none;
+    margin: 10px auto;
+    &:hover {
+      background-color: #aaa;
+    }
+    cursor: pointer;
+  }
+`;

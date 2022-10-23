@@ -1,22 +1,37 @@
 {
   "posts": [
     {
-      "username": "여기작성자",
-      "title": "제목입력",
-      "body": "내용입력",
-      "id": 1666454211166
+      "username": "sdcsdcsdc",
+      "title": "a3333",
+      "body": "222323adscasdc",
+      "id": 1666523371990
+    }
+  ],
+  "comments": [
+    {
+      "content": "왜 오류가 날 까 요 ",
+      "id": 1666530402550,
+      "postId": 1666523371990
     },
     {
-      "username": "asdf",
-      "title": "adf",
-      "body": "asdf",
-      "id": 1666458825016
+      "content": "엄청",
+      "id": 1666531695544,
+      "postId": 1666523371990
     },
     {
-      "username": "asdasdasd",
-      "title": "qwdqwdqwdqw",
-      "body": "zxczxvzxvadvsdv",
-      "id": 1666458857651
+      "content": "123d",
+      "id": 1666531706875,
+      "postId": 1666523371990
+    },
+    {
+      "content": "잘되는데",
+      "id": 1666531806184,
+      "postId": 1666523371990
+    },
+    {
+      "content": "해결나중에하고",
+      "id": 1666533607852,
+      "postId": 1666523371990
     }
   ]
 }

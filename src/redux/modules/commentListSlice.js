@@ -1,91 +1,144 @@
-// import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import axios from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
-// //state
-// const initialState = {
-//   comment: [],
-//   isLoading: false,
-//   error: null,
-// };
+//state
+const initialState = {
+  comments: [],
+  isLoading: false,
+  error: null,
+};
 
-// //현재 thunk / reducer는 id 로그인해서 구현하는거 확인해서 다시 짜야된다.
+//thunk middleware
 
-// //thunk middleware
+// ** addComment **
+export const __addComments = createAsyncThunk(
+  "commentList/addComments",
+  async (commentData, thunkAPI) => {
+    console.log(commentData);
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3001/comments/",
+        commentData
+      );
+      return thunkAPI.fulfillWithValue(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
-// // ** addComment **
-// export const __addComments = createAsyncThunk(
-//   "commentList/addComments", //name
-//   async (commentData, thunkAPI) => {
-//     try {
-//       const { data } = await axios.post("url", commentData);
-//       return thunkAPI.fulfillWithValue(data);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
+// ** getComment **
 
-// // ** getComment **
-// //서버에서가져오는데이터일텐데.. 백에서받아오나???
-// export const __getComments = createAsyncThunk(
-//   "commentList/getComments",
-//   async (payload, thunkAPI) => {
-//     try {
-//       const { data } = await axios.get("url");
-//       const newData = data.sort((a, b) => b.id - a.id); //내림차순적용.
-//       return thunkAPI.fulfillWithValue(newData);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
+export const __getComments = createAsyncThunk(
+  "commentList/getComments",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await axios.get("http://localhost:3001/comments/");
+      const newData = data.sort((a, b) => b.id - a.id); //내림차순적용.
+      //console.log("newdata", newData);
+      return thunkAPI.fulfillWithValue(newData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
-// // ** deleteComment **
-// export const __deleteComments = createAsyncThunk(
-//   "commentList/deleteComments",
-//   async (commentId, thunkAPI) => {
-//     try {
-//       await axios.delete("url");
-//       return thunkAPI.fulfillWithValue(commentId);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
+// ** deleteComment **
+export const __deleteComments = createAsyncThunk(
+  "commentList/deleteComments",
+  async (commentId, thunkAPI) => {
+    try {
+      await axios.delete(`http://localhost:3001/comments/${commentId}`);
+      return thunkAPI.fulfillWithValue(commentId);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
-// // ** editComment **
-// export const __editComments = createAsyncThunk(
-//   "commentList/editComments",
-//   async (commentId, thunkAPI) => {
-//     try {
-//       //commentId.id = id들 중에 id하나.
-//       await axios.patch("url/${commentId.id}", commentId);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
+// ** editComment **
+export const __editComments = createAsyncThunk(
+  "commentList/editComments",
+  async (commentId, thunkAPI) => {
+    try {
+      //commentId.id = id들 중에 id하나.
+      await axios.patch(
+        `http://localhost:3001/comments//${commentId.id}`,
+        commentId
+      );
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
-// //reducer, extrareducers
+//reducer, extrareducers
 
-// const commentListSlice = createSlice({
-//   name: "commentList",
-//   initialState,
-//   reducers: {},
-//   extraReducers: {
-//     // ** addComments ** //
-//     [__addComments.pending]: (state) => {
-//       state.isLoading = true;
-//     },
-//     // ** getComments ** //
+const commentListSlice = createSlice({
+  name: "commentList",
+  initialState,
+  reducers: {},
+  extraReducers: {
+    // ** addComments ** //
+    [__addComments.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__addComments.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.comments.unshift(action.payload); // push 반대로 입력
+    },
+    [__addComments.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    // ** getComments ** //
+    [__getComments.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getComments.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.comments = action.payload;
+    },
+    [__getComments.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
 
-//     // ** patchComments ** //
+    // ** patchComments ** //
+    [__editComments.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__editComments.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      console.log(action.payload);
+      const target = state.comments.findIndex(
+        (comment) => comment.id === action.payload.id
+      );
+      state.comments.splice(target, 1, action.payload);
+    },
+    [__editComments.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    // ** deleteComments ** //
+    [__deleteComments.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__deleteComments.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      const target = state.comments.findIndex(
+        (comment) => comment.id === action.payload
+      );
+      state.comments.splice(target, 1);
+    },
+    [__deleteComments.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+  },
+});
 
-//     // ** deleteComments ** //
-//   },
-// });
+//export
 
-// //export
-
-// export const {} = commentListSlice.actions;
-// export default commentListSlice.reducer;
+export const {} = commentListSlice.actions;
+export default commentListSlice.reducer;
