@@ -1,9 +1,10 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import Home from "../pages/Home";
-import BoardList from "../pages/BoardList";
-import DetailBoard from "../pages/DetailBoard";
-import Mypage from "../pages/Mypage";
-import AddBoard from "../pages/AddBoard";
+
+import Home from "../components/pages/Home";
+import BoardList from "../components/pages/BoardList";
+import DetailBoard from "../components/pages/DetailBoard";
+import Mypage from "../components/pages/Mypage";
+import AddBoard from "../components/pages/AddBoard";
 import Layout from "../components/layout/Layout";
 
 function Router() {
@@ -14,8 +15,6 @@ function Router() {
           {/*Route를 추가해주세요! */}
           <Route path="/" element={<Home />} />
           <Route path="/board-list" element={<BoardList />} />
-
-          {/* detailboard추가. */}
           <Route path="/detail/:id" element={<DetailBoard />} />
           <Route path="/add-board" element={<AddBoard />} />
           <Route path="/mypage" element={<Mypage />} />

@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { __deletePosts, __editPosts } from "../redux/modules/postsSlice";
+import { __deletePosts, __editPosts } from "../../redux/modules/postsSlice";
 
-import Nav from "../components/header/Nav";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import Layout from "../components/layout/Layout";
-import AddCommentForm from "../features/comment/AddCommentForm";
-import CommentList from "../features/comment/CommentList";
+import AddCommentForm from "../board/comment/AddCommentForm";
+import CommentList from "../board/comment/CommentList";
 import { List } from "@mui/material";
+import StLayout from "../layout/StLayout";
 
 const DetailBoard = () => {
   const dispatch = useDispatch();
@@ -68,7 +67,7 @@ const DetailBoard = () => {
   };
 
   return (
-    <>
+    <StLayout>
       <List>
         <BtnBox>
           <button onClick={() => setIsEdit((prev) => !prev)}>
@@ -105,65 +104,52 @@ const DetailBoard = () => {
         <AddCommentForm />
         <CommentList />
       </List>
-    </>
+    </StLayout>
   );
 };
 
 export default DetailBoard;
 
-{
-  /* 버튼 클릭하면 isEdit상태에 따라 보여지는 아이콘이 다르게 세팅. */
-}
-{
-  /* false상태가 취소, true상태가 세팅키 */
-}
-{
-  /* <BtnBox>
-        <div>Username : {todo?.username}</div>
-        <div>
-          <Button
-            onClick={() => {
-              setIsEdit((prev) => !prev);
-            }}
-          >
-
-            {isEdit ? <FcCancel /> : <FcSettings />}
-          </Button>
-          <Button onClick={onDeleteHandler}>
-            <FcFullTrash />
-          </Button>
-        </div>
-      </BtnBox>
-      {!isEdit ? (
-        <div>
-          <p>userid</p>
-          <p>body</p>
-        </div>
-      ) : null} */
-}
-{
-  /*
-      {isEdit ? (
-        <FormBox>
-          <input
-            type="text"
-            value={editTodo.title}
-            onChange={(e) => {
-              {
-                setEdittodo({ ...editTodo, title: e.target.value });
-              }
-            }}
-          />
-          <button onClick={onEditHandler}>저장</button>
-        </FormBox>
-      ) : null}
-      <h2> 댓글 </h2>
-
-    </div> */
-}
-
 const BtnBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+`;
+
+const FormBox = styled.form`
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  input {
+    font-size: 28px;
+    height: 35px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    border: none;
+    border-bottom: 2px solid #aaa;
+    border-right: 2px solid #aaa;
+    margin-bottom: 35px;
+  }
+  textarea {
+    height: 100px;
+    font-size: 20px;
+    padding: 8px;
+    border: none;
+    border-bottom: 2px solid #aaa;
+    border-right: 2px solid #aaa;
+  }
+  button {
+    background-color: #aaa;
+    min-width: 30px;
+    min-height: 30px;
+    width: 13%;
+    height: 10%;
+    border-radius: 5px;
+    border: none;
+    margin: 10px auto;
+    &:hover {
+      background-color: #aaa;
+    }
+    cursor: pointer;
+  }
 `;

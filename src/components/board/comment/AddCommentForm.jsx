@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import { __addComments } from "../../redux/modules/commentListSlice";
+import { __addComments } from "../../../redux/modules/commentListSlice";
 
 const AddCommentForm = () => {
   const dispatch = useDispatch();

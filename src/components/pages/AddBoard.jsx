@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { __addPosts } from "../redux/modules/postsSlice";
+import { __addPosts } from "../../redux/modules/postsSlice";
 
 //css
-import Nav from "../components/header/Nav";
 import styled from "styled-components";
-import Layout from "../components/layout/Layout";
-import { Outline } from "../shared/Outline";
+import { Outline } from "../../shared/Outline";
+import StLayout from "../layout/StLayout";
 
 const AddBoard = () => {
   const dispatch = useDispatch();
@@ -41,7 +40,7 @@ const AddBoard = () => {
   };
 
   return (
-    <>
+    <StLayout>
       <List>
         <FormBox>
           <input
@@ -70,7 +69,7 @@ const AddBoard = () => {
           <button onClick={onSubmitHandler}>추가하기</button>
         </FormBox>
       </List>
-    </>
+    </StLayout>
   );
 };
 

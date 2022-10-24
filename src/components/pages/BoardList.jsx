@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import CardBoard from "../components/CardBoard";
-import { __getPosts } from "../redux/modules/postsSlice";
+import CardBoard from "../board/list/CardBoard";
+import { __getPosts } from "../../redux/modules/postsSlice";
 
 // Css영역 import
 import styled from "styled-components";
-import { Outline } from "../shared/Outline";
+import { Outline } from "../../shared/Outline";
+import StLayout from "../layout/StLayout";
 
 function BoardList() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { posts } = useSelector((state) => state.posts);
@@ -20,7 +19,7 @@ function BoardList() {
 
   console.log(posts);
   return (
-    <>
+    <StLayout>
       {/* need Category component ..필요없을지도?*/}
       <input
         type="text"
@@ -38,7 +37,7 @@ function BoardList() {
           return <CardBoard key={post.id} post={post} />;
         })}
       </List>
-    </>
+    </StLayout>
   );
 }
 
@@ -48,7 +47,7 @@ const List = styled.div`
   ${Outline};
   display: flex;
   flex-direction: row;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 17px;
+  gap: 20px;
+  padding-top: 50px;
 `;

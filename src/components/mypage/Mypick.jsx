@@ -1,17 +1,10 @@
 import styled from "styled-components";
-import Card2 from "../components/Card2";
-import { Outline } from "../shared/Outline";
+import { Outline } from "../../shared/Outline";
 
 function Mypick() {
   return (
     <>
-      <List>
-        <Card2 />
-        <Card2 />
-        <Card2 />
-        <Card2 />
-        <Card2 />
-      </List>
+      <List>카드가져오기</List>
     </>
   );
 }

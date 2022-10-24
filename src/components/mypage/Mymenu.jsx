@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Button } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
-import { Outline } from "../shared/Outline";
+import { Outline } from "../../shared/Outline";
 import Myprofile from "./Myprofile";
 import Mypick from "./Mypick";
 
