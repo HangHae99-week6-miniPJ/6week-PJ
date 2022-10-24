@@ -95,7 +95,7 @@ export default DetailBoard;
               setIsEdit((prev) => !prev);
             }}
           >
-          
+
             {isEdit ? <FcCancel /> : <FcSettings />}
           </Button>
           <Button onClick={onDeleteHandler}>
@@ -111,7 +111,7 @@ export default DetailBoard;
       ) : null} */
 }
 {
-  /* 
+  /*
       {isEdit ? (
         <FormBox>
           <input
@@ -127,7 +127,7 @@ export default DetailBoard;
         </FormBox>
       ) : null}
       <h2> 댓글 </h2>
-    
+
     </div> */
 }
 

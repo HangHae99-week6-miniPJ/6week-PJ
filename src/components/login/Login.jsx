@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import FormDialog from "./FormDialog.jsx";
+import SignUpModal from "./SignUpModal.jsx";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Outline } from "../../shared/Outline";
@@ -25,9 +25,11 @@ function Login() {
               type="password"
             />
           </StLogin>
-          <Button variant="contained">로그인</Button>
+          <Button variant="contained" type="submit">
+            로그인
+          </Button>
         </StForm>
-        <FormDialog />
+        <SignUpModal />
       </StSingup>
     </Stbox>
   );

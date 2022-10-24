@@ -10,8 +10,6 @@ function Mypage() {
       <Nav />
       <Layout>
         <Mymenu />
-        <Myprofie />
-        <Mypick />
       </Layout>
     </div>
   );
