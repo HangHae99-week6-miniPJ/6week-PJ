@@ -14,7 +14,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { __deletePosts, __getPosts } from "../redux/modules/postsSlice";
 import Swal from "sweetalert2";
-import { display } from "@mui/system";
 
 export default function CardBoard({ post }) {
   const dispatch = useDispatch();
