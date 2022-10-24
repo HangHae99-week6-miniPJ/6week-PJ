@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import Layout from "../components/layout/Layout";
 import AddCommentForm from "../features/comment/AddCommentForm";
 import CommentList from "../features/comment/CommentList";
+import { List } from "@mui/material";
 
 const DetailBoard = () => {
   const dispatch = useDispatch();
@@ -68,7 +69,7 @@ const DetailBoard = () => {
 
   return (
     <>
-      <Layout>
+      <List>
         <BtnBox>
           <button onClick={() => setIsEdit((prev) => !prev)}>
             {isEdit ? "취소" : "수정"}
@@ -76,36 +77,34 @@ const DetailBoard = () => {
           {/* deletehandler로 삭제구현. */}
           <button onClick={onDeleteHandler}>삭제하기</button>
         </BtnBox>
-        <div>
-          <Nav />
-          {isEdit ? (
-            <FormBox>
-              <input
-                type="text"
-                value={editPost.title}
-                onChange={(e) => {
-                  setEditPost({ ...editPost, title: e.target.value });
-                }}
-              />
-              <textarea
-                type="text"
-                value={editPost.body}
-                onChange={(e) => {
-                  setEditPost({ ...editPost, body: e.target.value });
-                }}
-              />
-              <button onClick={onEditHandler}>저장</button>
-            </FormBox>
-          ) : (
-            <FormBox>
-              <input type="text" value={editPost.title} disabled />
-              <textarea type="text" value={editPost.body} disabled />
-            </FormBox>
-          )}
-        </div>
+        {isEdit ? (
+          <FormBox>
+            <input
+              type="text"
+              value={editPost.title}
+              onChange={(e) => {
+                setEditPost({ ...editPost, title: e.target.value });
+              }}
+            />
+            <textarea
+              type="text"
+              value={editPost.body}
+              onChange={(e) => {
+                setEditPost({ ...editPost, body: e.target.value });
+              }}
+            />
+            <button onClick={onEditHandler}>저장해주새오</button>
+          </FormBox>
+        ) : (
+          <FormBox>
+            <input value={editPost.title} disabled />
+            <textarea value={editPost.body} disabled />
+          </FormBox>
+        )}
+
         <AddCommentForm />
         <CommentList />
-      </Layout>
+      </List>
     </>
   );
 };

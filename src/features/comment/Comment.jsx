@@ -15,16 +15,16 @@ const Comment = ({ comment }) => {
   const [editComment, setEditComment] = useState({
     content: comment.content,
   });
-
-  const [check, setCheck] = useState(comment.content);
+  //새로고침 필요없이 component 랜더링 시키기 위한 State with useEffect.
+  const [renderComment, setRenderComment] = useState(comment.content);
 
   const onCommentEdit = (e) => {
     e.preventDefault();
     if (editComment.content === "") {
       Swal.fire({
         icon: "error",
-        title: "잘못된거같은데요",
-        text: "모두 입력해주세요!😥",
+        title: "잘못된거같은데요🤭",
+        text: "모두 입력해주세요! 😤",
       });
     }
     if (editComment.content.trim() === "") return;
@@ -32,19 +32,19 @@ const Comment = ({ comment }) => {
     dispatch(__editComments({ ...comment, ...editComment }));
 
     setIsEdit(false);
-    setCheck(editComment.content);
+    setRenderComment(editComment.content);
   };
 
   const onCommentDelete = (e) => {
     dispatch(__deleteComments(comment.id));
   };
-
+  console.log(isEdit);
   return (
     <CommentBox>
       {/* isEdit이 true상태일때 = comment 내용을 보여준다. 닉네임도추가가능함. */}
       {!isEdit ? (
-        <div>
-          <p>{check}</p>
+        <div style={{ width: "350px" }}>
+          <p>{renderComment}</p>
         </div>
       ) : (
         <FormBox>
@@ -61,7 +61,6 @@ const Comment = ({ comment }) => {
       <button onClick={() => setIsEdit((prev) => !prev)}>
         {isEdit ? "취소" : "수정"}
       </button>
-
       {!isEdit ? (
         <button
           onClick={(e) => {
@@ -98,8 +97,18 @@ const CommentBox = styled.div`
   align-content: center;
   justify-content: flex-start;
   margin-bottom: 10px;
-  .btnIcon {
-    font-size: 20px;
+
+  button {
+    background-color: #aaa;
+    min-width: 30px;
+    min-height: 25px;
+    width: 5%;
+    height: 5%;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    justify-content: flex-end;
   }
 `;
 
@@ -109,19 +118,27 @@ const FormBox = styled.form`
 
   input {
     max-width: 354px;
-    width: 255px;
+    min-width: 150px;
+    width: 550px;
     height: 23px;
     font-size: 15px;
     padding-bottom: 2px;
     border: none;
-    border-bottom: 1px solid #fdc676;
-    border-right: 1px solid #fdc676;
+    border-bottom: 1px solid #bccb;
+    border-right: 1px solid #bccb;
+    margin: 10px;
   }
-  #inpBox {
-    margin-left: 25px;
-    width: 54px;
-    @media (max-width: 480px) {
-      width: 30px;
-    }
+
+  button {
+    background-color: #aaa;
+    min-width: 30px;
+    min-height: 25px;
+    width: 25%;
+    height: 5%;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    justify-content: flex-end;
   }
 `;

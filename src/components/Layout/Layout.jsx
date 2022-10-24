@@ -1,16 +1,33 @@
 import React from "react";
-import styled from "styled-components";
-import { Outline } from "../../shared/Outline";
+import { useLocation } from "react-router-dom";
+
+//css import
+
+import Nav from "../header/Nav";
 
 function Layout({ children }) {
-  return <StLayout>{children}</StLayout>;
+  //useLocation활용해서 계속되는 랜더링 방지
+  const { pathname } = useLocation();
+
+  return (
+    <>
+      {pathname === "/" ? (
+        children
+      ) : (
+        <>
+          <Nav />
+          {children}
+        </>
+      )}
+    </>
+  );
 }
 
 export default Layout;
 
-const StLayout = styled.div`
-  ${Outline}
-  max-width: 1200px;
-  min-width: 800px;
-  margin: auto;
-`;
+// const StLayout = styled.div`
+//   ${Outline}
+//   max-width: 1200px;
+//   min-width: 800px;
+//   margin: auto;
+// `;

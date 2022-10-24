@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { shallowEqual, useDispatch } from "react-redux";
-import { initializeConnect } from "react-redux/es/components/connect";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import LabelBottomNavigation from "../components/header/LabelBottomNavigation";
-import Nav from "../components/header/Nav";
-import Layout from "../components/layout/Layout";
 import { __addPosts } from "../redux/modules/postsSlice";
+
+//css
+import Nav from "../components/header/Nav";
+import styled from "styled-components";
+import Layout from "../components/layout/Layout";
+import { Outline } from "../shared/Outline";
 
 const AddBoard = () => {
   const dispatch = useDispatch();
@@ -30,8 +31,8 @@ const AddBoard = () => {
       addBoard.username === "" ||
       addBoard.title === "" ||
       addBoard.body === ""
-    ) {
-    }
+    )
+      return {};
 
     dispatch(__addPosts({ ...addBoard, id: Date.now() }));
     setAddBoard(initialState);
@@ -41,9 +42,7 @@ const AddBoard = () => {
 
   return (
     <>
-      <Layout>
-        <Nav />
-
+      <List>
         <FormBox>
           <input
             type="text"
@@ -70,7 +69,7 @@ const AddBoard = () => {
           />
           <button onClick={onSubmitHandler}>추가하기</button>
         </FormBox>
-      </Layout>
+      </List>
     </>
   );
 };
@@ -80,9 +79,11 @@ export default AddBoard;
 const FormBox = styled.form`
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin: auto;
+  width: 250px;
+
   input {
-    font-size: 28px;
+    font-size: 15px;
     height: 35px;
     padding-left: 5px;
     padding-bottom: 5px;
@@ -93,7 +94,7 @@ const FormBox = styled.form`
   }
   textarea {
     height: 100px;
-    font-size: 20px;
+    font-size: 15px;
     padding: 8px;
     border: none;
     border-bottom: 2px solid #aaa;
@@ -103,14 +104,19 @@ const FormBox = styled.form`
     background-color: #aaa;
     min-width: 30px;
     min-height: 30px;
-    width: 13%;
-    height: 10%;
+    width: 40%;
+    height: 20%;
     border-radius: 5px;
-    border: none;
     margin: 10px auto;
-    &:hover {
-      background-color: #aaa;
-    }
+
     cursor: pointer;
   }
+`;
+
+const List = styled.div`
+  ${Outline};
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 17px;
 `;

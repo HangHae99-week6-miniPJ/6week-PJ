@@ -63,7 +63,7 @@ export const __editComments = createAsyncThunk(
     try {
       //commentId.id = id들 중에 id하나.
       await axios.patch(
-        `http://localhost:3001/comments//${commentId.id}`,
+        `http://localhost:3001/comments/${commentId.id}`,
         commentId
       );
     } catch (error) {
@@ -85,7 +85,7 @@ const commentListSlice = createSlice({
     },
     [__addComments.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments.unshift(action.payload); // push 반대로 입력
+      state.comments.unshift(action.payload);
     },
     [__addComments.rejected]: (state, action) => {
       state.isLoading = false;

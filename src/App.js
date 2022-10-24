@@ -1,4 +1,5 @@
 import React from "react";
+
 import { GlobalStyle } from "./shared/GlobalStyle";
 import Router from "./shared/Router";
 

@@ -8,6 +8,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
+import { Box } from "@mui/material";
 
 export default function LabelBottomNavigation() {
   const [value, setValue] = React.useState("recents");
@@ -18,12 +19,13 @@ export default function LabelBottomNavigation() {
   };
 
   return (
-    <>
-      <TestDiv>
-        <Button size="medium" variant="outlined" startIcon={<LogoutIcon />}>
-          로그아웃
-        </Button>
-      </TestDiv>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignContent: "center",
+      }}
+    >
       <BottomNavigation
         sx={{ width: 500 }}
         value={value}
@@ -52,13 +54,19 @@ export default function LabelBottomNavigation() {
           icon={<AccountBoxSharpIcon />}
         />
       </BottomNavigation>
-    </>
+      <TestDiv>
+        <Button size="medium" variant="outlined" startIcon={<LogoutIcon />}>
+          로그아웃
+        </Button>
+      </TestDiv>
+    </Box>
   );
 }
 
 /*로그아웃 박스 */
 const TestDiv = styled.div`
-  margin-top: 20px;
+  margin-right: 10px;
   display: flex;
+  align-items: center;
   justify-content: flex-end;
 `;

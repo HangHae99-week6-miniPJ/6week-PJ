@@ -22,9 +22,7 @@ const CommentList = () => {
           <Comment key={comment.id} comment={comment}>
             댓글
           </Comment>
-        ) : (
-          "이건가?"
-        );
+        ) : null;
       })}
     </Commentblock>
   );
@@ -33,5 +31,6 @@ const CommentList = () => {
 export default CommentList;
 
 const Commentblock = styled.div`
-  height: 200px;
+  margin-top: 20px;
+  height: 250px;
 `;

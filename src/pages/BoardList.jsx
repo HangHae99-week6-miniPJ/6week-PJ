@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Card from "../components/Card";
-import LabelBottomNavigation from "../components/header/LabelBottomNavigation";
-import Nav from "../components/header/Nav";
+import CardBoard from "../components/CardBoard";
 import { __getPosts } from "../redux/modules/postsSlice";
+
+// Css영역 import
+import styled from "styled-components";
+import { Outline } from "../shared/Outline";
 
 function BoardList() {
   const navigate = useNavigate();
@@ -14,31 +16,39 @@ function BoardList() {
 
   useEffect(() => {
     dispatch(__getPosts());
-    //console.log("hello");
   }, [dispatch]);
 
   console.log(posts);
   return (
     <>
-      <div>
-        <Nav />
-      </div>
-      {/* <button
-        onClick={() => {
-          navigate("/add-board");
+      {/* need Category component ..필요없을지도?*/}
+      <input
+        type="text"
+        placeholder="Category"
+        style={{
+          width: "80%",
+          display: "flex",
+          justifyContent: "center",
+          margin: "auto",
         }}
-      >
-        작성하기
-      </button> */}
-      {/* detailBoard가 cardlist역할을 한다. */}
-      <div>카테고리</div>
-      <div>
+      />
+
+      <List>
         {posts?.map((post) => {
-          return <Card key={post.id} post={post} />;
+          return <CardBoard key={post.id} post={post} />;
         })}
-      </div>
+      </List>
     </>
   );
 }
 
 export default BoardList;
+
+const List = styled.div`
+  ${Outline};
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 17px;
+`;

@@ -23,9 +23,17 @@ export default function MediaCard() {
         <Typography gutterBottom variant="h5" component="div">
           제목
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          textOverflow="ellipsis"
+          whiteSpace="nowrap"
+          overflow="hidden"
+        >
           내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.(글자수
-          넘어가는거 처리 안됨 ㅠ)
+          넘어가는거 처리 안됨
+          용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.글자수
+          넘어가는거 처리 안됨)
         </Typography>
       </CardContent>
       <CardActions>

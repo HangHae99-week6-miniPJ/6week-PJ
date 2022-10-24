@@ -4,7 +4,7 @@ import styled from "styled-components";
 function Nav() {
   return (
     <StNav>
-      <img alt="네브로고" src="image/titleLogo.png" width="100px" />
+      <img alt="네브로고" src="/image/titleLogo.png" width="100px" />
       <LabelBottomNavigation />
     </StNav>
   );
