@@ -3,7 +3,6 @@ import MuButton from "../components/elem/MuButton";
 
 import { Flexbox } from "../shared/Flexbox";
 import { Outline } from "../shared/Outline";
-import MyBox from "./MyBox";
 
 const btnStyle1 = {
   _padding: "8px",
@@ -21,7 +20,7 @@ const btnStyle2 = {
 
 function Myprofile() {
   return (
-    <MyBox>
+    <>
       <UserForm as="form">
         <ListBox>
           <BeforeBox>
@@ -50,7 +49,7 @@ function Myprofile() {
           <MuButton {...btnStyle2}>돌아가기</MuButton>
         </ButtonBox>
       </UserForm>
-    </MyBox>
+    </>
   );
 }
 
