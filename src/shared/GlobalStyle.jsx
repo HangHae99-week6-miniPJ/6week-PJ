@@ -63,4 +63,5 @@ table {
 	max-width: 300px;
 	max-height: 300px;
 }
+
 `;

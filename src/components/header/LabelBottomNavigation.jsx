@@ -7,7 +7,7 @@ import LibraryBooksSharpIcon from "@mui/icons-material/LibraryBooksSharp";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function LabelBottomNavigation() {
   const [value, setValue] = React.useState("recents");
@@ -50,6 +50,9 @@ export default function LabelBottomNavigation() {
           label="내 정보 수정하기"
           value="nearby"
           icon={<AccountBoxSharpIcon />}
+          onClick={() => {
+            navigate("/mypage");
+          }}
         />
       </BottomNavigation>
     </>
