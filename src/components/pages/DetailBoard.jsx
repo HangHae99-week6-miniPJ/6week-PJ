@@ -5,19 +5,19 @@ import {
   __deletePosts,
   __editPosts,
   __getPosts,
-} from "../redux/modules/postsSlice";
+} from "../../redux/modules/postsSlice";
 
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import AddCommentForm from "../features/comment/AddCommentForm";
-import CommentList from "../features/comment/CommentList";
+import AddCommentForm from "../board/comment/AddCommentForm";
+import CommentList from "../board/comment/CommentList";
 import { List } from "@mui/material";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { red } from "@mui/material/colors";
-import { __toggleLike } from "../redux/modules/likeSlice";
+import { __toggleLike } from "../../redux/modules/likeSlice";
 
 const DetailBoard = () => {
   const dispatch = useDispatch();
