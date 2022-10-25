@@ -11,6 +11,7 @@ function Mypick() {
 
 export default Mypick;
 
+/*카드 정렬 */
 const List = styled.div`
   ${Outline};
   display: flex;
