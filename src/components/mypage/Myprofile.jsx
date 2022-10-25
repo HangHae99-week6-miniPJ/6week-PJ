@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import MuButton from "../components/elem/MuButton";
+import MuButton from "../elem/MuButton";
 
-import { Flexbox } from "../shared/Flexbox";
-import { Outline } from "../shared/Outline";
+import { Flexbox } from "../../shared/Flexbox";
+import { Outline } from "../../shared/Outline";
 
 const btnStyle1 = {
   _padding: "8px",

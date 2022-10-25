@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import {
   __deleteComments,
   __editComments,
-} from "../../redux/modules/commentListSlice";
+} from "../../../redux/modules/commentListSlice";
 
 const Comment = ({ comment }) => {
   const dispatch = useDispatch();

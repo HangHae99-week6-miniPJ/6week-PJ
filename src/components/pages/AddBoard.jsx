@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { __addPosts } from "../redux/modules/postsSlice";
+import { __addPosts } from "../../redux/modules/postsSlice";
 
 //사진업로드용
 import imageCompression from "browser-image-compression";
 
 //css
 import styled from "styled-components";
-import { Outline } from "../shared/Outline";
-import axios from "axios";
+import { Outline } from "../../shared/Outline";
+import StLayout from "../layout/StLayout";
 
 const AddBoard = () => {
   const dispatch = useDispatch();
@@ -99,7 +99,7 @@ const AddBoard = () => {
   };
 
   return (
-    <>
+    <StLayout>
       <List>
         <FormBox>
           <select
@@ -157,7 +157,7 @@ const AddBoard = () => {
           <button onClick={onSubmitHandler}>추가하기</button>
         </FormBox>
       </List>
-    </>
+    </StLayout>
   );
 };
 

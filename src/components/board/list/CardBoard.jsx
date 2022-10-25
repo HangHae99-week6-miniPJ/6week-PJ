@@ -12,7 +12,7 @@ import { red } from "@mui/material/colors";
 
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { __deletePosts, __getPosts } from "../redux/modules/postsSlice";
+import { __deletePosts } from "../../../redux/modules/postsSlice";
 import Swal from "sweetalert2";
 
 export default function CardBoard({ post }) {

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import CardBoard from "../components/CardBoard";
-import { __getPosts } from "../redux/modules/postsSlice";
+import CardBoard from "../board/list/CardBoard";
+import { __getPosts } from "../../redux/modules/postsSlice";
 
 // Css영역 import
 import styled from "styled-components";
-import { Outline } from "../shared/Outline";
+import { Outline } from "../../shared/Outline";
+import StLayout from "../layout/StLayout";
 
 function BoardList() {
   const dispatch = useDispatch();
@@ -54,9 +55,9 @@ const List = styled.div`
   ${Outline};
   display: flex;
   flex-direction: row;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 17px;
+  gap: 20px;
+  padding-top: 50px;
 `;
 
 const Select = styled.select`
