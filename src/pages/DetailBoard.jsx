@@ -1,20 +1,30 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { __deletePosts, __editPosts } from "../redux/modules/postsSlice";
+import {
+  __deletePosts,
+  __editPosts,
+  __getPosts,
+} from "../redux/modules/postsSlice";
 
-import Nav from "../components/header/Nav";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import Layout from "../components/layout/Layout";
 import AddCommentForm from "../features/comment/AddCommentForm";
 import CommentList from "../features/comment/CommentList";
 import { List } from "@mui/material";
+
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import IconButton from "@mui/material/IconButton";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { red } from "@mui/material/colors";
+import { __toggleLike } from "../redux/modules/likeSlice";
 
 const DetailBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const like = useSelector((state) => state.likes);
+  console.log(like);
   //edit기본값 false로 해놓음.
   const [isEdit, setIsEdit] = useState(false);
 
@@ -23,9 +33,14 @@ const DetailBoard = () => {
   const { posts } = useSelector((state) => state.posts);
   const post = posts.find((post) => post.id === +id);
 
-  //게시글 수정하기.
-  //id관련은 payload로 붙이는게 아직 좀이해가안됨
-  //post가 data있을시에 보여준다. ?.
+  // useEffect(() => {
+  //   dispatch(__getPosts);
+  // });
+
+  // const onisLike = async () => {
+  //   dispatch(__toggleLike(likeNumber));
+  // };
+
   const [editPost, setEditPost] = useState({
     title: post?.title,
     body: post?.body,
@@ -33,15 +48,6 @@ const DetailBoard = () => {
 
   const onEditHandler = (e) => {
     e.preventDefault();
-    //이부분은 받아온값이 이미 있고, disabled처리를 하기 때문에 사용하지는 않아서 주석으로돌려놓음.
-    // if (editPost.title === "" || editPost.body === "") {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "비어있다!!",
-    //     text: "입력하세요!😤",
-    //   });
-    // }
-    // if (editPost.title.trim() === "" || editPost.body.trim() === "") return;
     dispatch(__editPosts({ ...post, ...editPost }));
     setIsEdit(false);
   };
@@ -70,6 +76,11 @@ const DetailBoard = () => {
   return (
     <>
       <List>
+        <IconButton aria-label="add to favorites">
+          <FavoriteBorderIcon />
+          <FavoriteIcon sx={{ color: red[400] }} />
+        </IconButton>
+        <p>좋아요 숫자</p>
         <BtnBox>
           <button onClick={() => setIsEdit((prev) => !prev)}>
             {isEdit ? "취소" : "수정"}
@@ -111,56 +122,43 @@ const DetailBoard = () => {
 
 export default DetailBoard;
 
-{
-  /* 버튼 클릭하면 isEdit상태에 따라 보여지는 아이콘이 다르게 세팅. */
-}
-{
-  /* false상태가 취소, true상태가 세팅키 */
-}
-{
-  /* <BtnBox>
-        <div>Username : {todo?.username}</div>
-        <div>
-          <Button
-            onClick={() => {
-              setIsEdit((prev) => !prev);
-            }}
-          >
-
-            {isEdit ? <FcCancel /> : <FcSettings />}
-          </Button>
-          <Button onClick={onDeleteHandler}>
-            <FcFullTrash />
-          </Button>
-        </div>
-      </BtnBox>
-      {!isEdit ? (
-        <div>
-          <p>userid</p>
-          <p>body</p>
-        </div>
-      ) : null} */
-}
-{
-  /*
-      {isEdit ? (
-        <FormBox>
-          <input
-            type="text"
-            value={editTodo.title}
-            onChange={(e) => {
-              {
-                setEdittodo({ ...editTodo, title: e.target.value });
-              }
-            }}
-          />
-          <button onClick={onEditHandler}>저장</button>
-        </FormBox>
-      ) : null}
-      <h2> 댓글 </h2>
-
-    </div> */
-}
+const FormBox = styled.form`
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  input {
+    font-size: 28px;
+    height: 35px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    border: none;
+    border-bottom: 2px solid #aaa;
+    border-right: 2px solid #aaa;
+    margin-bottom: 35px;
+  }
+  textarea {
+    height: 100px;
+    font-size: 20px;
+    padding: 8px;
+    border: none;
+    border-bottom: 2px solid #aaa;
+    border-right: 2px solid #aaa;
+  }
+  button {
+    background-color: #aaa;
+    min-width: 30px;
+    min-height: 30px;
+    width: 13%;
+    height: 10%;
+    border-radius: 5px;
+    border: none;
+    margin: 10px auto;
+    &:hover {
+      background-color: #aaa;
+    }
+    cursor: pointer;
+  }
+`;
 
 const BtnBox = styled.div`
   display: flex;

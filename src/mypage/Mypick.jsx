@@ -1,17 +1,11 @@
 import styled from "styled-components";
-import Card2 from "../components/Card2";
+import CardBoard from "../components/CardBoard";
 import { Outline } from "../shared/Outline";
 
 function Mypick() {
   return (
     <>
-      <List>
-        <Card2 />
-        <Card2 />
-        <Card2 />
-        <Card2 />
-        <Card2 />
-      </List>
+      <List>'card'</List>
     </>
   );
 }

@@ -3,15 +3,19 @@ import axios from "axios";
 
 const initialState = {
   posts: [],
+  menuId: 0,
   error: null,
   isLoading: false,
   isSuccess: false,
 };
 
+//id=0일때 뭐ㅡ 1일때 뭐,ㅡ 2일때 뭐. [1,2,3,4,5]
+
 // ** addPosts ** //
 export const __addPosts = createAsyncThunk(
   "posts/addPosts",
   async (postsData, thunkAPI) => {
+    console.log("data", postsData);
     try {
       const data = await axios.post("http://localhost:3001/posts", postsData);
       return thunkAPI.fulfillWithValue(data.data);
@@ -46,7 +50,7 @@ export const __deletePosts = createAsyncThunk(
   }
 );
 
-// ** Thunk editPosts ** //
+// ** editPosts ** //
 export const __editPosts = createAsyncThunk(
   "posts/editPosts",
   //postId는 payload로 username,title,body,id를 모두가지고 있는 "객체"다.

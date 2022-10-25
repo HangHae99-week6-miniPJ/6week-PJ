@@ -25,7 +25,7 @@ export default function CardBoard({ post }) {
 
   return (
     <>
-      <Card sx={{ maxWidth: 350 }}>
+      <Card sx={{ maxWidth: 300 }}>
         <CardMedia
           component="img"
           height="200"
