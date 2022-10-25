@@ -15,16 +15,10 @@ const AddBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const initialState = {
-    username: "",
-    title: "",
-    body: "",
-  };
-
   const [postImg, setPostImg] = useState(null);
   const [compressedImageFile, setCompressedImageFile] = useState(null);
 
-  //img size donw
+  //img size down
   const compressImageAndGetImageFile = async (imageFile) => {
     const options = {
       maxSizeMB: 1,
@@ -84,6 +78,11 @@ const AddBoard = () => {
   //     }
   //   })
   // }
+  const initialState = {
+    title: "",
+    contents: "",
+    categoryId: 1,
+  };
 
   const [addBoard, setAddBoard] = useState(initialState);
 
@@ -91,10 +90,9 @@ const AddBoard = () => {
     const { name, value } = e.target;
     setAddBoard({ ...addBoard, [name]: value });
   };
-
+  console.log(addBoard);
   const onSubmitHandler = () => {
-    // dispatch(__addPosts(data));
-    dispatch(__addPosts({ ...addBoard, id: Date.now() }));
+    dispatch(__addPosts({ ...addBoard }));
     setAddBoard(initialState);
 
     navigate("/board-list");
@@ -105,25 +103,18 @@ const AddBoard = () => {
       <List>
         <FormBox>
           <select
-            name="menuId"
-            value={addBoard.menuId}
+            name="categoryId"
+            value={addBoard.categoryId}
             onChange={onChangeHandler}
           >
             <option value={0}>카테고리</option>
-            <option value={1}>orange</option>
-            <option value={2}>green</option>
-            <option value={3}>pink</option>
-            <option value={4}>purple</option>
-            <option value={5}>blue</option>
+            <option value={1}>자기관리</option>
+            <option value={2}>식습관</option>
+            <option value={3}>마음챙김</option>
+            <option value={4}>취미</option>
+            <option value={5}>기타</option>
           </select>
 
-          <input
-            type="text"
-            name="username"
-            value={addBoard.username}
-            onChange={onChangeHandler}
-            placeholder="작성자"
-          />
           <input
             type="text"
             name="title"
@@ -132,11 +123,11 @@ const AddBoard = () => {
             placeholder="제목을 입력해 주세오"
           />
           <textarea
-            name="body"
+            name="contents"
             id="inputbody"
             cols="20"
             rows="10"
-            value={addBoard.body}
+            value={addBoard.contents}
             onChange={onChangeHandler}
             placeholder="내용을 입력해 주세요."
           />

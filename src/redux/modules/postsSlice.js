@@ -9,7 +9,7 @@ const initialState = {
   isSuccess: false,
 };
 
-//id=0일때 뭐ㅡ 1일때 뭐,ㅡ 2일때 뭐. [1,2,3,4,5]
+//const headers = { Authorization: `Bearer ${token}` };
 
 // ** addPosts ** //
 export const __addPosts = createAsyncThunk(
@@ -17,7 +17,12 @@ export const __addPosts = createAsyncThunk(
   async (postsData, thunkAPI) => {
     console.log("data", postsData);
     try {
-      const data = await axios.post("http://localhost:3001/posts", postsData);
+      //토큰
+      const data = await axios.post(
+        "http://43.201.49.125/posts/",
+        { data: postsData }
+        // headers
+      );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

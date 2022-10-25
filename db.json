@@ -20,111 +20,14 @@
       "body": "Category2",
       "menuId": "2",
       "id": 1666684853213
-    },
-    {
-      "username": "카테고리5",
-      "title": "카테고리5",
-      "body": "555",
-      "menuId": "5",
-      "id": 1666686574745
-    },
-    {
-      "username": "purpl",
-      "title": "제목",
-      "body": "내용",
-      "menuId": "4",
-      "id": 1666691282381
-    },
-    {
-      "username": "퍼플",
-      "title": "퍼플",
-      "body": "퍼플",
-      "menuId": "4",
-      "id": 1666691299415
-    },
-    {
-      "username": "ㄷㄱㄹㅍㄷㄱㅍ",
-      "title": "사진이안올라갑니다.",
-      "body": "살려주세요",
-      "menuId": "3",
-      "id": 1666694331076
-    },
-    {
-      "username": "blue",
-      "title": "blue",
-      "body": "blue",
-      "menuId": "5",
-      "id": 1666694422541
-    },
-    {
-      "username": "orㅁ",
-      "title": "orange",
-      "body": "orange",
-      "menuId": "1",
-      "id": 1666694656417
-    },
-    {
-      "username": "5qjs",
-      "title": "5qjs",
-      "body": "5",
-      "menuId": "5",
-      "id": 1666694715960
-    },
-    {
-      "username": "blue",
-      "title": "blue",
-      "body": "blue",
-      "menuId": "5",
-      "id": 1666696668307
-    },
-    {
-      "username": "Grren",
-      "title": "Green",
-      "body": "Green",
-      "menuId": "2",
-      "id": 1666698872084
-    },
-    {
-      "username": "",
-      "title": "",
-      "body": "",
-      "id": 1666700473580
-    },
-    {
-      "username": "",
-      "title": "",
-      "body": "",
-      "id": 1666702221375
-    },
-    {
-      "username": "wer",
-      "title": "wer",
-      "body": "wer",
-      "menuId": "4",
-      "id": 1666702232675
     }
   ],
-  "comments": [
-    {
-      "content": "카테고리1",
-      "id": 1666697331967,
-      "postId": 1666684841353
-    },
-    {
-      "content": "살랴주세요",
-      "id": 1666700701159,
-      "postId": 1666694331076
-    },
-    {
-      "content": "탈주직전",
-      "id": 1666700706000,
-      "postId": 1666694331076
-    }
-  ],
+  "comments": [],
   "like": [
     {
-      "likeNumber": 0,
-      "isLike": true
+      "likeNumber": 0
+      //"postId" : "id",
+      //"userId" : ,
     }
   ]
 }

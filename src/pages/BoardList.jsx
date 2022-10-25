@@ -32,11 +32,11 @@ function BoardList() {
       {/* category */}
       <select name="menuId" value={category} onChange={onChangeHandler}>
         <option value={"0"}>카테고리</option>
-        <option value={"1"}>orange</option>
-        <option value={"2"}>green</option>
-        <option value={"3"}>pink</option>
-        <option value={"4"}>purple</option>
-        <option value={"5"}>blue</option>
+        <option value={"1"}>자기관리</option>
+        <option value={"2"}>식습관</option>
+        <option value={"3"}>마음챙김</option>
+        <option value={"4"}>취미</option>
+        <option value={"5"}>기타</option>
       </select>
       {/* Card */}
       <List>
