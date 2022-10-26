@@ -65,7 +65,7 @@ export const __deletePosts = createAsyncThunk(
   "posts/deletePosts",
   async (payload, thunkAPI) => {
     try {
-      axios.delete(`http://43.201.49.125/posts/${payload}`);
+      axios.delete(`http://43.201.49.125/posts/${payload}`, { headers });
       return thunkAPI.fulfillWithValue(payload);
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);
@@ -85,7 +85,7 @@ export const __editPosts = createAsyncThunk(
         { contents: payload.contents, title: payload.title },
         { headers }
       );
-      console.log("정현님잘못", data);
+
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

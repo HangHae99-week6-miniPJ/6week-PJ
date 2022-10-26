@@ -18,17 +18,16 @@ const CommentList = () => {
 
   return (
     <Commentblock>
-      {/* {comment?.map((comments) => {
-        return (
-          <Comment key={comments?.postId} comment={comments}>
-            댓글
-          </Comment>
-        );
-      })} */}
+      {comment?.map((comments) => {
+        return <Comment key={comments?.commentId} comments={comments} />;
+      })}
     </Commentblock>
   );
 };
 
+// {comment?.map((comments, i) => {
+//   return <Comment key={i} comment={comments} />;
+// })}
 export default CommentList;
 
 const Commentblock = styled.div`

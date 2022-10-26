@@ -3,7 +3,7 @@ import axios from "axios";
 
 //state
 const initialState = {
-  comment: {},
+  comment: [],
   isLoading: false,
   error: null,
 };
@@ -46,7 +46,7 @@ export const __getComments = createAsyncThunk(
       );
       console.log(data);
 
-      return thunkAPI.fulfillWithValue(data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -57,8 +57,11 @@ export const __getComments = createAsyncThunk(
 export const __deleteComments = createAsyncThunk(
   "commentList/deleteComments",
   async (commentId, thunkAPI) => {
+    console.log(commentId);
     try {
-      await axios.delete(`http://43.201.49.125/comments/${commentId}`);
+      await axios.delete(`http://43.201.49.125/comments/${commentId}`, {
+        headers,
+      });
       return thunkAPI.fulfillWithValue(commentId);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -106,6 +109,7 @@ const commentListSlice = createSlice({
       state.isLoading = true;
     },
     [__getComments.fulfilled]: (state, action) => {
+      console.log("action", action.payload);
       state.isLoading = false;
       state.comment = action.payload;
     },

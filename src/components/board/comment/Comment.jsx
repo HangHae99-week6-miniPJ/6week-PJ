@@ -7,11 +7,12 @@ import {
   __editComments,
 } from "../../../redux/modules/commentListSlice";
 
-const Comment = (comments) => {
+const Comment = ({ comments }) => {
+  console.log(comments);
   const dispatch = useDispatch();
 
   const [isEdit, setIsEdit] = useState(false);
-  console.log(comments);
+
   const [editComment, setEditComment] = useState({
     comment: comments.comment,
   });
@@ -36,7 +37,7 @@ const Comment = (comments) => {
   };
 
   const onCommentDelete = (e) => {
-    dispatch(__deleteComments(comments.postId));
+    dispatch(__deleteComments(comments.commentId));
   };
 
   return (
