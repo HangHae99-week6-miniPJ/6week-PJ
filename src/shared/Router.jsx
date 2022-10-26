@@ -5,7 +5,7 @@ import BoardList from "../components/pages/BoardList";
 import DetailBoard from "../components/pages/DetailBoard";
 import Mypage from "../components/pages/Mypage";
 import AddBoard from "../components/pages/AddBoard";
-import Layout from "../components/Layout/Layout";
+import Layout from "../components/layout/Layout";
 
 function Router() {
   return (

@@ -37,7 +37,7 @@ export default function CardBoard({ post }) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            제목
+            {post.title}
           </Typography>
           <Typography
             variant="body2"
@@ -46,7 +46,7 @@ export default function CardBoard({ post }) {
             whiteSpace="nowrap"
             overflow="hidden"
           >
-            {post.title}
+            {post.contents}
           </Typography>
         </CardContent>
         <CardActions>

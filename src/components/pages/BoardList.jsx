@@ -6,7 +6,6 @@ import { __getCategoryPosts, __getPosts } from "../../redux/modules/postsSlice";
 // Css영역 import
 import styled from "styled-components";
 import { Outline } from "../../shared/Outline";
-import CheckToken from "../Layout/CheckToken";
 
 function BoardList() {
   const dispatch = useDispatch();
@@ -31,16 +30,22 @@ function BoardList() {
     }
   }, [dispatch, category]);
 
+  useEffect(() => {
+    dispatch(__getPosts());
+  }, []);
+
   const onChangeHandler = (e) => {
     console.log("1");
     setCategory(e.target.value);
   };
 
   return (
-    <CheckToken>
+    <>
       {/* category */}
       <select name="categoryId" value={category} onChange={onChangeHandler}>
-        <option value={0}>카테고리</option>
+        <option value={0} disabled>
+          카테고리
+        </option>
         <option value={1}>자기관리</option>
         <option value={2}>식습관</option>
         <option value={3}>마음챙김</option>
@@ -53,7 +58,7 @@ function BoardList() {
           return <CardBoard key={post.postId} post={post} />;
         })}
       </List>
-    </CheckToken>
+    </>
   );
 }
 
