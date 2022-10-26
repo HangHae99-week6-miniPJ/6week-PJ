@@ -8,26 +8,25 @@ import { __addComments } from "../../../redux/modules/commentListSlice";
 const AddCommentForm = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+
   const initialState = {
-    content: "",
-    id: 0,
-    postId: +id,
+    comment: "",
   };
 
   const [comment, setComment] = useState(initialState);
 
   const onSubmitComment = (e) => {
     e.preventDefault();
-    if (comment.content === "") {
+    if (comment.comment === "") {
       Swal.fire({
         icon: "error",
         title: "비었습니다만?",
         text: "입력해주세오!😥",
       });
     }
-    if (comment.content.trim() === "") return;
+    if (comment.comment.trim() === "") return;
 
-    dispatch(__addComments({ ...comment, id: Date.now() }));
+    dispatch(__addComments({ ...comment }));
     setComment(initialState);
   };
 
@@ -36,12 +35,12 @@ const AddCommentForm = () => {
       <input
         maxLength="30"
         type="text"
-        value={comment.content}
+        value={comment.comment}
         placeholder="댓글입력좀ㅎ"
         onChange={(e) => {
           setComment({
             ...comment,
-            content: e.target.value,
+            comment: e.target.value,
           });
         }}
       />

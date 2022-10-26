@@ -15,12 +15,15 @@ import { useNavigate } from "react-router-dom";
 import { __deletePosts } from "../../../redux/modules/postsSlice";
 import Swal from "sweetalert2";
 
+import { useState } from "react";
+
 export default function CardBoard({ post }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [like, setLike] = useState(false);
 
   const onDeleteHandler = (e) => {
-    dispatch(__deletePosts(post.id));
+    dispatch(__deletePosts(post.postId));
   };
 
   return (
@@ -50,7 +53,7 @@ export default function CardBoard({ post }) {
           <Button
             size="small"
             onClick={() => {
-              navigate(`/detail/${post.id}`);
+              navigate(`/detail/${post.postId}`);
             }}
           >
             수정하기

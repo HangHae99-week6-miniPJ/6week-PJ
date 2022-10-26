@@ -1,41 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   __deletePosts,
   __editPosts,
   __getPosts,
-} from "../redux/modules/postsSlice";
-
+} from "../../redux/modules/postsSlice";
 import styled from "styled-components";
 import Swal from "sweetalert2";
-import AddCommentForm from "../features/comment/AddCommentForm";
-import CommentList from "../features/comment/CommentList";
+import AddCommentForm from "../board/comment/AddCommentForm";
+import CommentList from "../board/comment/CommentList";
+
 import { List } from "@mui/material";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { red } from "@mui/material/colors";
-import { __toggleLike } from "../redux/modules/likeSlice";
+import { __toggleLike } from "../../redux/modules/likeSlice";
 
 const DetailBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const like = useSelector((state) => state.likes);
-  console.log(like);
+
   //edit기본값 false로 해놓음.
   const [isEdit, setIsEdit] = useState(false);
 
   const { id } = useParams();
+  console.log(id);
 
   const { posts } = useSelector((state) => state.posts);
-  const post = posts.find((post) => post.id === +id);
+  const post = posts.find((post) => post.postId === +id);
 
-  // useEffect(() => {
-  //   dispatch(__getPosts);
-  // });
+  console.log("postId", post.postId);
+
+  useEffect(() => {
+    dispatch(__getPosts());
+  }, []);
 
   // const onisLike = async () => {
   //   dispatch(__toggleLike(likeNumber));
@@ -43,11 +46,12 @@ const DetailBoard = () => {
 
   const [editPost, setEditPost] = useState({
     title: post?.title,
-    body: post?.body,
+    contents: post?.contents,
   });
 
   const onEditHandler = (e) => {
     e.preventDefault();
+
     dispatch(__editPosts({ ...post, ...editPost }));
     setIsEdit(false);
   };
@@ -99,9 +103,9 @@ const DetailBoard = () => {
             />
             <textarea
               type="text"
-              value={editPost.body}
+              value={editPost.contents}
               onChange={(e) => {
-                setEditPost({ ...editPost, body: e.target.value });
+                setEditPost({ ...editPost, contents: e.target.value });
               }}
             />
             <button onClick={onEditHandler}>저장해주새오</button>
@@ -109,7 +113,7 @@ const DetailBoard = () => {
         ) : (
           <FormBox>
             <input value={editPost.title} disabled />
-            <textarea value={editPost.body} disabled />
+            <textarea value={editPost.contents} disabled />
           </FormBox>
         )}
 

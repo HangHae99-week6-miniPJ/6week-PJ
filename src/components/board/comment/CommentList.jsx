@@ -14,12 +14,11 @@ const CommentList = () => {
     dispatch(__getComments());
   }, [dispatch]);
 
-  console.log(comments);
   return (
     <Commentblock>
       {comments.map((comment) => {
         return comment.postId === Number(id) ? (
-          <Comment key={comment.id} comment={comment}>
+          <Comment key={comment.postId} comment={comment}>
             댓글
           </Comment>
         ) : null;

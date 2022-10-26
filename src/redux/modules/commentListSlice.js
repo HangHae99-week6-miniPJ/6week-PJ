@@ -3,9 +3,14 @@ import axios from "axios";
 
 //state
 const initialState = {
-  comments: [],
+  comment: {},
   isLoading: false,
   error: null,
+};
+
+const headers = {
+  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  refreshToken: `Bearer ${localStorage.getItem("refreshToken")}`,
 };
 
 //thunk middleware
@@ -17,9 +22,11 @@ export const __addComments = createAsyncThunk(
     console.log(commentData);
     try {
       const { data } = await axios.post(
-        "http://localhost:3001/comments/",
-        commentData
+        `http://43.201.49.125/comments/${commentData.postId}`,
+        { comment: commentData.comments },
+        { headers }
       );
+      console.log("댓글요", data);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -32,8 +39,11 @@ export const __addComments = createAsyncThunk(
 export const __getComments = createAsyncThunk(
   "commentList/getComments",
   async (payload, thunkAPI) => {
+    console.log("getcomments", payload);
     try {
-      const { data } = await axios.get("http://localhost:3001/comments/");
+      const { data } = await axios.get(
+        `http://43.201.49.125/comments/${payload}`
+      );
       const newData = data.sort((a, b) => b.id - a.id); //내림차순적용.
       //console.log("newdata", newData);
       return thunkAPI.fulfillWithValue(newData);
@@ -48,7 +58,7 @@ export const __deleteComments = createAsyncThunk(
   "commentList/deleteComments",
   async (commentId, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:3001/comments/${commentId}`);
+      await axios.delete(`http://43.201.49.125/comments/${commentId}`);
       return thunkAPI.fulfillWithValue(commentId);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -63,7 +73,7 @@ export const __editComments = createAsyncThunk(
     try {
       //commentId.id = id들 중에 id하나.
       await axios.patch(
-        `http://localhost:3001/comments/${commentId.id}`,
+        `http://43.201.49.125/comments/${commentId.id}`,
         commentId
       );
     } catch (error) {

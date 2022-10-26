@@ -13,32 +13,32 @@ const Comment = ({ comment }) => {
   const [isEdit, setIsEdit] = useState(false);
 
   const [editComment, setEditComment] = useState({
-    content: comment.content,
+    comment: comment.comment,
   });
   //새로고침 필요없이 component 랜더링 시키기 위한 State with useEffect.
-  const [renderComment, setRenderComment] = useState(comment.content);
+  const [renderComment, setRenderComment] = useState(comment.comment);
 
   const onCommentEdit = (e) => {
     e.preventDefault();
-    if (editComment.content === "") {
+    if (editComment.comment === "") {
       Swal.fire({
         icon: "error",
         title: "잘못된거같은데요🤭",
         text: "모두 입력해주세요! 😤",
       });
     }
-    if (editComment.content.trim() === "") return;
+    if (editComment.comment.trim() === "") return;
     console.log({ ...comment, ...editComment });
     dispatch(__editComments({ ...comment, ...editComment }));
 
     setIsEdit(false);
-    setRenderComment(editComment.content);
+    setRenderComment(editComment.comment);
   };
 
   const onCommentDelete = (e) => {
-    dispatch(__deleteComments(comment.id));
+    dispatch(__deleteComments(comment.postId));
   };
-  console.log(isEdit);
+
   return (
     <CommentBox>
       {/* isEdit이 true상태일때 = comment 내용을 보여준다. 닉네임도추가가능함. */}
@@ -50,9 +50,9 @@ const Comment = ({ comment }) => {
         <FormBox>
           <input
             type="text"
-            value={editComment.content}
+            value={editComment.comment}
             onChange={(e) => {
-              setEditComment({ ...editComment, content: e.target.value });
+              setEditComment({ ...editComment, comment: e.target.value });
             }}
           />
           <button onClick={onCommentEdit}>수정하기</button>
@@ -104,7 +104,7 @@ const CommentBox = styled.div`
     min-height: 25px;
     width: 5%;
     height: 5%;
-    border-radius: 5px;
+    border-rdius: 5px;
     border: none;
     cursor: pointer;
     margin-right: 10px;

@@ -1,48 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CardBoard from "../board/list/CardBoard";
-import { __getPosts } from "../../redux/modules/postsSlice";
+import { __getCategoryPosts, __getPosts } from "../../redux/modules/postsSlice";
 
 // Css영역 import
 import styled from "styled-components";
 import { Outline } from "../../shared/Outline";
-import StLayout from "../layout/StLayout";
 
 function BoardList() {
   const dispatch = useDispatch();
 
-  const [category, setCategory] = useState("1");
+  const [category, setCategory] = useState(0);
 
-  const { posts: data } = useSelector((state) => state.posts);
-  const posts = data?.filter((data) => data.menuId === category);
-  //게시글의 id -> 좋아요의id -> reducer - counter 1, ? : onclick
+  const { posts } = useSelector((state) => state.posts);
 
-  // 데이터 -->>>>  thunk ->>>>> reducer
-  // page component?는 다른가?? 상위 에서햇으면 하위에서필요없다.
+  //const accessToken = window.localstroage.accesstoken
+  // axios('url'),{
+  //   Headers: {authorization : bearer $ accessToken}
+  // }
 
+  //reducer생성, category===0, getPosts x-> categorypost:id
+
+  //카테고리변경될때마다 랜더링.
   useEffect(() => {
-    dispatch(__getPosts());
-  }, [dispatch]);
+    if (category === 0) {
+      dispatch(__getPosts()); //category0번일때실행
+    } else {
+      dispatch(__getCategoryPosts(category));
+    }
+  }, [dispatch, category]);
 
   const onChangeHandler = (e) => {
+    console.log("1");
     setCategory(e.target.value);
   };
 
   return (
     <>
       {/* category */}
-      <select name="menuId" value={category} onChange={onChangeHandler}>
-        <option value={"0"}>카테고리</option>
-        <option value={"1"}>자기관리</option>
-        <option value={"2"}>식습관</option>
-        <option value={"3"}>마음챙김</option>
-        <option value={"4"}>취미</option>
-        <option value={"5"}>기타</option>
+      <select name="categoryId" value={category} onChange={onChangeHandler}>
+        <option value={0}>카테고리</option>
+        <option value={1}>자기관리</option>
+        <option value={2}>식습관</option>
+        <option value={3}>마음챙김</option>
+        <option value={4}>취미</option>
+        <option value={5}>기타</option>
       </select>
       {/* Card */}
       <List>
         {posts?.map((post) => {
-          return <CardBoard key={post.id} post={post} />;
+          return <CardBoard key={post.postId} post={post} />;
         })}
       </List>
     </>

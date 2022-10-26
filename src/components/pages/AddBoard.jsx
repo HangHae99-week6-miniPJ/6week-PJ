@@ -78,10 +78,11 @@ const AddBoard = () => {
   //     }
   //   })
   // }
+
   const initialState = {
     title: "",
     contents: "",
-    categoryId: 1,
+    categoryId: 0,
   };
 
   const [addBoard, setAddBoard] = useState(initialState);
@@ -290,7 +291,7 @@ const StRowFormBox = styled.p`
     font-weight: 500;
     border: var(--border-style);
     background-color: var(--blue-color);
-    margin-right: 10px;
+    margin: auto;
     cursor: pointer;
     outline: none;
   }

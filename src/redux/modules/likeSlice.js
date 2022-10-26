@@ -17,7 +17,7 @@ export const __toggleLike = createAsyncThunk(
   //payload = paramsId값.
   async (payload, thunkAPI) => {
     try {
-      await axios.post("http://localhost:3001/like", payload);
+      await axios.post("http://43.201.49.125/likes", { ...payload });
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -25,7 +25,6 @@ export const __toggleLike = createAsyncThunk(
   }
 );
 
-//useSelector 확실히 해야겟다. -> qa.
 const likeSlice = createSlice({
   name: "likes",
   initialState,
