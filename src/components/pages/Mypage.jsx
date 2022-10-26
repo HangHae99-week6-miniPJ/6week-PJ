@@ -1,4 +1,4 @@
-import Mymenu from "../mypage/Mymenu";
+import Myprofile from "../mypage/Myprofile";
 import StLayout from "../Layout/StLayout";
 import CheckToken from "../Layout/CheckToken";
 
@@ -6,7 +6,7 @@ function Mypage() {
   return (
     <CheckToken>
       <StLayout>
-        <Mymenu />
+        <Myprofile />
       </StLayout>
     </CheckToken>
   );

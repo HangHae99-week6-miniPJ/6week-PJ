@@ -106,44 +106,49 @@ function Myprofile() {
 
   return (
     <>
-      <User>
-        <ListBox>
-          <BeforeBox>
-            <img
-              src={`data:image/webp;base64,${userimg}`}
-              alt="프로필 사진"
-              className="profimg"
-            />
-            <UserNickSt>{user.nickname}</UserNickSt>
-            <UserIdSt>@{user.username}</UserIdSt>
-          </BeforeBox>
-          <InputBox>
-            <p>프로필 사진 변경</p>
-            <Form as="form" onSubmit={onSubmit} enctype="multipart/form-data">
-              <input
-                type="file"
-                {...register("imageUrl")}
-                required
-                accept="image/*"
-                onChange={onChange}
+      <Contain>
+        <ConTitle>
+          <span>회원정보 수정하기🔐</span>
+        </ConTitle>
+        <User>
+          <ListBox>
+            <BeforeBox>
+              <img
+                src={`data:image/webp;base64,${userimg}`}
+                alt="프로필 사진"
+                className="profimg"
               />
-              <MuButton {...btnStyle}>사진 변경</MuButton>
-            </Form>
-            <p>닉네임 변경</p>
-            <Form as="form" onSubmit={handleSubmit(onNickEdit)}>
-              <input
-                type="text"
-                placeholder="변경할 닉네임을 작성해주세요. (1-8자이내)"
-                minLength="1"
-                maxLength="8"
-                required
-                {...register("nickname")}
-              />
-              <MuButton {...btnStyle}>닉네임 변경</MuButton>
-            </Form>
-          </InputBox>
-        </ListBox>
-      </User>
+              <UserNickSt>{user.nickname}</UserNickSt>
+              <UserIdSt>@{user.username}</UserIdSt>
+            </BeforeBox>
+            <InputBox>
+              <p>프로필 사진 변경</p>
+              <Form as="form" onSubmit={onSubmit} enctype="multipart/form-data">
+                <input
+                  type="file"
+                  {...register("imageUrl")}
+                  required
+                  accept="image/*"
+                  onChange={onChange}
+                />
+                <MuButton {...btnStyle}>사진 변경</MuButton>
+              </Form>
+              <p>닉네임 변경</p>
+              <Form as="form" onSubmit={handleSubmit(onNickEdit)}>
+                <input
+                  type="text"
+                  placeholder="변경할 닉네임을 작성해주세요. (1-8자이내)"
+                  minLength="1"
+                  maxLength="8"
+                  required
+                  {...register("nickname")}
+                />
+                <MuButton {...btnStyle}>닉네임 변경</MuButton>
+              </Form>
+            </InputBox>
+          </ListBox>
+        </User>
+      </Contain>
     </>
   );
 }
@@ -205,4 +210,19 @@ const User = styled.div`
 const Form = styled.div`
   display: flex;
   margin-bottom: 10px;
+`;
+
+/*컨테이너 타이틀*/
+const ConTitle = styled.div`
+  margin: 20px 0px 30px 0px;
+  span {
+    font-weight: bolder;
+    font-size: 2rem;
+    margin-left: 20px;
+  }
+`;
+
+/*컨테이너 박스*/
+const Contain = styled.div`
+  ${Outline};
 `;
