@@ -18,7 +18,7 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { red } from "@mui/material/colors";
 import { __toggleLike } from "../../redux/modules/likeSlice";
-import CheckToken from "../layout/CheckToken";
+import CheckToken from "../Layout/CheckToken";
 
 const DetailBoard = () => {
   const dispatch = useDispatch();

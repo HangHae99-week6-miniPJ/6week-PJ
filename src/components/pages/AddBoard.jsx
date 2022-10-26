@@ -9,8 +9,8 @@ import imageCompression from "browser-image-compression";
 //css
 import styled from "styled-components";
 import { Outline } from "../../shared/Outline";
-import StLayout from "../layout/StLayout";
-import CheckToken from "../layout/CheckToken";
+import StLayout from "../Layout/StLayout";
+import CheckToken from "../Layout/CheckToken";
 
 const AddBoard = () => {
   const dispatch = useDispatch();

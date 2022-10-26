@@ -6,8 +6,7 @@ import { __getPosts } from "../../redux/modules/postsSlice";
 // Css영역 import
 import styled from "styled-components";
 import { Outline } from "../../shared/Outline";
-import StLayout from "../layout/StLayout";
-import CheckToken from "../layout/CheckToken";
+import CheckToken from "../Layout/CheckToken";
 
 function BoardList() {
   const dispatch = useDispatch();

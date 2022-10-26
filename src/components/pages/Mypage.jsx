@@ -1,6 +1,6 @@
 import Mymenu from "../mypage/Mymenu";
-import StLayout from "../layout/StLayout";
-import CheckToken from "../layout/CheckToken";
+import StLayout from "../Layout/StLayout";
+import CheckToken from "../Layout/CheckToken";
 
 function Mypage() {
   return (
