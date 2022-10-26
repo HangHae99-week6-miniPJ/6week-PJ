@@ -6,7 +6,7 @@ function Mypage() {
   return (
     <CheckToken>
       <StLayout>
-        <Mymenu />
+        <Myprofile />
       </StLayout>
     </CheckToken>
   );

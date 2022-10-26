@@ -5,24 +5,19 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import IconButton from "@mui/material/IconButton";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { red } from "@mui/material/colors";
+import Swal from "sweetalert2";
 
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { __deletePosts } from "../../../redux/modules/postsSlice";
-import Swal from "sweetalert2";
 
 import { useState } from "react";
 
 export default function CardBoard({ post }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [like, setLike] = useState(false);
 
-  const onDeleteHandler = (e) => {
+  const onDeleteHandler = () => {
     dispatch(__deletePosts(post.postId));
   };
 
@@ -80,12 +75,6 @@ export default function CardBoard({ post }) {
           >
             삭제하기
           </Button>
-          <IconButton aria-label="add to favorites">
-            <FavoriteBorderIcon />
-            {/* 좋아요 전 후  , 요기 처리는 아직 못하겟음.*/}
-            <FavoriteIcon sx={{ color: red[400] }} />
-          </IconButton>
-          <p>좋아요 숫자</p>
         </CardActions>
       </Card>
     </>
