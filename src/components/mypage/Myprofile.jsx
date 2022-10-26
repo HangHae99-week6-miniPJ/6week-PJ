@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 
 const btnStyle = {
   _padding: "8px",
@@ -18,12 +18,11 @@ const btnStyle = {
 function Myprofile() {
   const [user, setUser] = useState([]);
   const [userimg, setUserimg] = useState([]);
-  const [prof, setProf] = useState(
-    "https://news.samsungdisplay.com/wp-content/uploads/2022/05/IT_twi001t1345955-1-1024x639.jpg"
-  );
-
+  const [con, setCon] = useState();
+  //데이터 전송
   const { register, handleSubmit, watch } = useForm();
 
+  //유저 데이터 가져오기
   useEffect(() => {
     const req1 = axios.get("http://43.201.49.125/user", {
       headers: {
@@ -40,9 +39,7 @@ function Myprofile() {
     Promise.all([req1, req2])
       .then((res) => {
         setUser(res[0].data.data);
-        setUserimg(res[1].data);
-        // const img = window.atob(String.fromCharCode(...new Uint8Array(userimg)));
-        // setProf(img);
+        setUserimg(res[1].data.data);
       })
       .catch((error) => {
         if (error.code === "ERR_BAD_REQUEST") {
@@ -51,33 +48,38 @@ function Myprofile() {
       });
   }, []);
 
-  const onImgEdit = () => {
-    const imageUrl = watch("imageUrl");
-    console.log(imageUrl);
+  //프로팔 사진 수정하기
+  const [content, setContent] = useState("");
+  const onChange = (e) => {
+    setContent(e.target.files[0]);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault(); //ghk
+    const formData = new FormData();
+    formData.append("profImg", content);
+
     const headers = {
       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       refreshToken: `Bearer ${localStorage.getItem("refreshToken")}`,
     };
     axios
-      .patch(
-        "http://43.201.49.125/profile/image",
-        { imageUrl: imageUrl },
-        { headers }
-      )
+      .patch("http://43.201.49.125/profile/image", formData, { headers })
       .then((res) => {
-        console.log(res);
-        // if (res.data.message === "SUCCESS") {
-        //   window.location.replace("/mypage");
-        // }
+        if (res.data.message === "SUCCESS") {
+          // window.location.replace("/mypage");
+          alert("보냄");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.code === "ERR_BAD_REQUEST") {
+          Swal.fire("프로필 사진 수정에 실패했습니다.");
+        }
       });
-    // .catch((error) => {
-    //   console.log(error);
-    //   if (error.code === "ERR_BAD_REQUEST") {
-    //     Swal.fire("이미 사용중인 닉네임 입니다.");
-    //   }
-    // });
   };
 
+  //닉네임 변경하기
   const onNickEdit = () => {
     const nickname = watch("nickname");
     const headers = {
@@ -108,22 +110,23 @@ function Myprofile() {
       <User>
         <ListBox>
           <BeforeBox>
-            <img src={prof} alt="프로필 사진" className="profimg" />
+            <img
+              src={`data:image/webp;base64,${userimg}`}
+              alt="프로필 사진"
+              className="profimg"
+            />
             <UserNickSt>{user.nickname}</UserNickSt>
             <UserIdSt>@{user.username}</UserIdSt>
           </BeforeBox>
           <InputBox>
             <p>프로필 사진 변경</p>
-            <Form
-              as="form"
-              onSubmit={handleSubmit(onImgEdit)}
-              enctype="multipart/form-data"
-            >
+            <Form as="form" onSubmit={onSubmit} enctype="multipart/form-data">
               <input
                 type="file"
                 {...register("imageUrl")}
                 required
                 accept="image/*"
+                onChange={onChange}
               />
               <MuButton {...btnStyle}>사진 변경</MuButton>
             </Form>
