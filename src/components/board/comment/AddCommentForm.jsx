@@ -11,22 +11,23 @@ const AddCommentForm = () => {
 
   const initialState = {
     comment: "",
+    postId: id,
   };
 
-  const [comment, setComment] = useState(initialState);
+  const [comments, setComment] = useState(initialState);
 
   const onSubmitComment = (e) => {
     e.preventDefault();
-    if (comment.comment === "") {
+    if (comments.comment === "") {
       Swal.fire({
         icon: "error",
         title: "비었습니다만?",
         text: "입력해주세오!😥",
       });
     }
-    if (comment.comment.trim() === "") return;
+    if (comments.comment.trim() === "") return;
 
-    dispatch(__addComments({ ...comment }));
+    dispatch(__addComments({ ...comments }));
     setComment(initialState);
   };
 
@@ -35,11 +36,11 @@ const AddCommentForm = () => {
       <input
         maxLength="30"
         type="text"
-        value={comment.comment}
+        value={comments.comment}
         placeholder="댓글입력좀ㅎ"
         onChange={(e) => {
           setComment({
-            ...comment,
+            ...comments,
             comment: e.target.value,
           });
         }}

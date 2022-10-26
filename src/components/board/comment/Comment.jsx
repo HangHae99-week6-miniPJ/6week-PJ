@@ -7,16 +7,16 @@ import {
   __editComments,
 } from "../../../redux/modules/commentListSlice";
 
-const Comment = ({ comment }) => {
+const Comment = (comments) => {
   const dispatch = useDispatch();
 
   const [isEdit, setIsEdit] = useState(false);
-
+  console.log(comments);
   const [editComment, setEditComment] = useState({
-    comment: comment.comment,
+    comment: comments.comment,
   });
   //새로고침 필요없이 component 랜더링 시키기 위한 State with useEffect.
-  const [renderComment, setRenderComment] = useState(comment.comment);
+  const [renderComment, setRenderComment] = useState(comments.comment);
 
   const onCommentEdit = (e) => {
     e.preventDefault();
@@ -28,15 +28,15 @@ const Comment = ({ comment }) => {
       });
     }
     if (editComment.comment.trim() === "") return;
-    console.log({ ...comment, ...editComment });
-    dispatch(__editComments({ ...comment, ...editComment }));
+    console.log({ ...comments, ...editComment });
+    dispatch(__editComments({ ...comments, ...editComment }));
 
     setIsEdit(false);
     setRenderComment(editComment.comment);
   };
 
   const onCommentDelete = (e) => {
-    dispatch(__deleteComments(comment.postId));
+    dispatch(__deleteComments(comments.postId));
   };
 
   return (

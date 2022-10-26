@@ -19,11 +19,11 @@ const headers = {
 export const __addComments = createAsyncThunk(
   "commentList/addComments",
   async (commentData, thunkAPI) => {
-    console.log(commentData);
+    console.log(commentData.postId);
     try {
       const { data } = await axios.post(
         `http://43.201.49.125/comments/${commentData.postId}`,
-        { comment: commentData.comments },
+        { comment: commentData.comment },
         { headers }
       );
       console.log("댓글요", data);
@@ -44,9 +44,9 @@ export const __getComments = createAsyncThunk(
       const { data } = await axios.get(
         `http://43.201.49.125/comments/${payload}`
       );
-      const newData = data.sort((a, b) => b.id - a.id); //내림차순적용.
-      //console.log("newdata", newData);
-      return thunkAPI.fulfillWithValue(newData);
+      console.log(data);
+
+      return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -95,7 +95,7 @@ const commentListSlice = createSlice({
     },
     [__addComments.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments.unshift(action.payload);
+      state.comment.unshift(action.payload);
     },
     [__addComments.rejected]: (state, action) => {
       state.isLoading = false;
@@ -107,7 +107,7 @@ const commentListSlice = createSlice({
     },
     [__getComments.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments = action.payload;
+      state.comment = action.payload;
     },
     [__getComments.rejected]: (state, action) => {
       state.isLoading = false;
@@ -121,10 +121,10 @@ const commentListSlice = createSlice({
     [__editComments.fulfilled]: (state, action) => {
       state.isLoading = false;
       console.log(action.payload);
-      const target = state.comments.findIndex(
+      const target = state.comment.findIndex(
         (comment) => comment.id === action.payload.id
       );
-      state.comments.splice(target, 1, action.payload);
+      state.comment.splice(target, 1, action.payload);
     },
     [__editComments.rejected]: (state, action) => {
       state.isLoading = false;
@@ -136,10 +136,10 @@ const commentListSlice = createSlice({
     },
     [__deleteComments.fulfilled]: (state, action) => {
       state.isLoading = false;
-      const target = state.comments.findIndex(
+      const target = state.comment.findIndex(
         (comment) => comment.id === action.payload
       );
-      state.comments.splice(target, 1);
+      state.comment.splice(target, 1);
     },
     [__deleteComments.rejected]: (state, action) => {
       state.isLoading = false;
