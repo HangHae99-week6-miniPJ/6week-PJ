@@ -55,7 +55,7 @@ function Myprofile() {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault(); //ghk
+    e.preventDefault();
     const formData = new FormData();
     formData.append("profImg", content);
 
@@ -67,8 +67,7 @@ function Myprofile() {
       .patch("http://43.201.49.125/profile/image", formData, { headers })
       .then((res) => {
         if (res.data.message === "SUCCESS") {
-          // window.location.replace("/mypage");
-          alert("보냄");
+          window.location.replace("/mypage");
         }
       })
       .catch((error) => {
