@@ -18,7 +18,7 @@ const btnStyle = {
 function Myprofile() {
   const [user, setUser] = useState([]);
   const [userimg, setUserimg] = useState([]);
-  const [con, setCon] = useState();
+
   //데이터 전송
   const { register, handleSubmit, watch } = useForm();
 
