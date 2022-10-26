@@ -10,6 +10,7 @@ import imageCompression from "browser-image-compression";
 import styled from "styled-components";
 import { Outline } from "../../shared/Outline";
 import StLayout from "../layout/StLayout";
+import CheckToken from "../layout/CheckToken";
 
 const AddBoard = () => {
   const dispatch = useDispatch();
@@ -99,65 +100,67 @@ const AddBoard = () => {
   };
 
   return (
-    <StLayout>
-      <List>
-        <FormBox>
-          <select
-            name="categoryId"
-            value={addBoard.categoryId}
-            onChange={onChangeHandler}
-          >
-            <option value={0}>카테고리</option>
-            <option value={1}>자기관리</option>
-            <option value={2}>식습관</option>
-            <option value={3}>마음챙김</option>
-            <option value={4}>취미</option>
-            <option value={5}>기타</option>
-          </select>
+    <CheckToken>
+      <StLayout>
+        <List>
+          <FormBox>
+            <select
+              name="categoryId"
+              value={addBoard.categoryId}
+              onChange={onChangeHandler}
+            >
+              <option value={0}>카테고리</option>
+              <option value={1}>자기관리</option>
+              <option value={2}>식습관</option>
+              <option value={3}>마음챙김</option>
+              <option value={4}>취미</option>
+              <option value={5}>기타</option>
+            </select>
 
-          <input
-            type="text"
-            name="title"
-            value={addBoard.title}
-            onChange={onChangeHandler}
-            placeholder="제목을 입력해 주세오"
-          />
-          <textarea
-            name="contents"
-            id="inputbody"
-            cols="20"
-            rows="10"
-            value={addBoard.contents}
-            onChange={onChangeHandler}
-            placeholder="내용을 입력해 주세요."
-          />
+            <input
+              type="text"
+              name="title"
+              value={addBoard.title}
+              onChange={onChangeHandler}
+              placeholder="제목을 입력해 주세오"
+            />
+            <textarea
+              name="contents"
+              id="inputbody"
+              cols="20"
+              rows="10"
+              value={addBoard.contents}
+              onChange={onChangeHandler}
+              placeholder="내용을 입력해 주세요."
+            />
 
-          {/* <input
+            {/* <input
             type="file"
             accept="image/jpg, image/jpeg, image/png"
             onChange={previewImage}
           /> */}
-          <StRowFormBox>
-            <main className="container">
-              <h2>이미지 미리보기</h2>
+            <StRowFormBox>
+              <main className="container">
+                <h2>이미지 미리보기</h2>
 
-              <input
-                type="file"
-                onChange={(e) => {
-                  encodeFileToBase64(e.target.files[0]);
-                }}
-              />
+                <input
+                  type="file"
+                  onChange={(e) => {
+                    encodeFileToBase64(e.target.files[0]);
+                  }}
+                />
 
-              <div className="preview">
-                {imageSrc && <img src={imageSrc} alt="preview-img" />}
-              </div>
-            </main>
-          </StRowFormBox>
+                <div className="preview">
+                  {imageSrc && <img src={imageSrc} alt="preview-img" />}
+                </div>
+              </main>
+            </StRowFormBox>
 
-          <button onClick={onSubmitHandler}>추가하기</button>
-        </FormBox>
-      </List>
-    </StLayout>
+            <button onClick={onSubmitHandler}>추가하기</button>
+          </FormBox>
+        </List>
+      </StLayout>
+    </CheckToken>
   );
 };
 

@@ -62,6 +62,7 @@ table {
 .profimg {
 	max-width: 300px;
 	max-height: 300px;
+	background-color: black;
 }
 
 `;

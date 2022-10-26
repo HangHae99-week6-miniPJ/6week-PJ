@@ -1,54 +1,147 @@
+//CSS관련 임포트
 import styled from "styled-components";
 import MuButton from "../elem/MuButton";
-
 import { Flexbox } from "../../shared/Flexbox";
 import { Outline } from "../../shared/Outline";
+import Swal from "sweetalert2";
 
-const btnStyle1 = {
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
+const btnStyle = {
   _padding: "8px",
   _margin: "20px",
-};
-
-const btnStyle2 = {
-  _padding: "8px",
-  _margin: "20px",
-  _border: "2px solid #19A8F1",
-  _bgColor: "#ffffff",
-  _color: "#19A8F1",
-  _hoverBgColor: "#d5d5d5",
 };
 
 function Myprofile() {
+  const [user, setUser] = useState([]);
+  const [userimg, setUserimg] = useState([]);
+  const [prof, setProf] = useState(
+    "https://news.samsungdisplay.com/wp-content/uploads/2022/05/IT_twi001t1345955-1-1024x639.jpg"
+  );
+
+  const { register, handleSubmit, watch } = useForm();
+
+  useEffect(() => {
+    const req1 = axios.get("http://43.201.49.125/user", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        refreshToken: `Bearer ${localStorage.getItem("refreshToken")}`,
+      },
+    });
+    const req2 = axios.get("http://43.201.49.125/user/profile", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        refreshToken: `Bearer ${localStorage.getItem("refreshToken")}`,
+      },
+    });
+    Promise.all([req1, req2])
+      .then((res) => {
+        setUser(res[0].data.data);
+        setUserimg(res[1].data);
+        // const img = window.atob(String.fromCharCode(...new Uint8Array(userimg)));
+        // setProf(img);
+      })
+      .catch((error) => {
+        if (error.code === "ERR_BAD_REQUEST") {
+          alert("데이터 가져오기에 실패했습니다.");
+        }
+      });
+  }, []);
+
+  const onImgEdit = () => {
+    const imageUrl = watch("imageUrl");
+    console.log(imageUrl);
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      refreshToken: `Bearer ${localStorage.getItem("refreshToken")}`,
+    };
+    axios
+      .patch(
+        "http://43.201.49.125/profile/image",
+        { imageUrl: imageUrl },
+        { headers }
+      )
+      .then((res) => {
+        console.log(res);
+        // if (res.data.message === "SUCCESS") {
+        //   window.location.replace("/mypage");
+        // }
+      });
+    // .catch((error) => {
+    //   console.log(error);
+    //   if (error.code === "ERR_BAD_REQUEST") {
+    //     Swal.fire("이미 사용중인 닉네임 입니다.");
+    //   }
+    // });
+  };
+
+  const onNickEdit = () => {
+    const nickname = watch("nickname");
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      refreshToken: `Bearer ${localStorage.getItem("refreshToken")}`,
+    };
+    axios
+      .patch(
+        "http://43.201.49.125/profile/nickname",
+        { nickname: nickname },
+        { headers }
+      )
+      .then((res) => {
+        if (res.data.message === "SUCCESS") {
+          window.location.replace("/mypage");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.code === "ERR_BAD_REQUEST") {
+          Swal.fire("이미 사용중인 닉네임 입니다.");
+        }
+      });
+  };
+
   return (
     <>
-      <UserForm as="form">
+      <User>
         <ListBox>
           <BeforeBox>
-            <img
-              src="image/titleLogo.png"
-              alt="프로필 사진"
-              className="profimg"
-            />
-            <UserNickSt>닉네임</UserNickSt>
-            <UserIdSt>@유저아이디</UserIdSt>
+            <img src={prof} alt="프로필 사진" className="profimg" />
+            <UserNickSt>{user.nickname}</UserNickSt>
+            <UserIdSt>@{user.username}</UserIdSt>
           </BeforeBox>
           <InputBox>
             <p>프로필 사진 변경</p>
-            <input type="file" />
+            <Form
+              as="form"
+              onSubmit={handleSubmit(onImgEdit)}
+              enctype="multipart/form-data"
+            >
+              <input
+                type="file"
+                {...register("imageUrl")}
+                required
+                accept="image/*"
+              />
+              <MuButton {...btnStyle}>사진 변경</MuButton>
+            </Form>
             <p>닉네임 변경</p>
-            <input
-              type="text"
-              placeholder=" 변경할 닉네임을 작성해주세요. (1-10자이내)"
-              minLength="1"
-              maxLength="10"
-            />
+            <Form as="form" onSubmit={handleSubmit(onNickEdit)}>
+              <input
+                type="text"
+                placeholder="변경할 닉네임을 작성해주세요. (1-8자이내)"
+                minLength="1"
+                maxLength="8"
+                required
+                {...register("nickname")}
+              />
+              <MuButton {...btnStyle}>닉네임 변경</MuButton>
+            </Form>
           </InputBox>
         </ListBox>
-        <ButtonBox>
-          <MuButton {...btnStyle1}>수정하기</MuButton>
-          <MuButton {...btnStyle2}>돌아가기</MuButton>
-        </ButtonBox>
-      </UserForm>
+      </User>
     </>
   );
 }
@@ -59,14 +152,14 @@ export default Myprofile;
 const UserNickSt = styled.span`
   font-size: 1.5rem;
   font-weight: 700;
-  margin-left: 10px;
+  margin-top: 20px;
 `;
 
 /*ID*/
 const UserIdSt = styled.span`
   font-size: 1.5rem;
-  margin-left: 5px;
   color: gray;
+  margin-top: 5px;
 `;
 
 /*기존 회원 정보 박스*/
@@ -83,6 +176,7 @@ const InputBox = styled.div`
   input {
     ${Outline};
     font-size: 16px;
+    width: 300px;
   }
 
   p {
@@ -96,17 +190,17 @@ const InputBox = styled.div`
 const ListBox = styled.div`
   display: flex;
   gap: 100px;
-  margin-top: 50px;
+  margin: 50px 50px;
+  flex-direction: column;
 `;
 
 /*회원정보 폼 박스*/
-const UserForm = styled.div`
+const User = styled.div`
   ${Outline};
   ${Flexbox};
 `;
 
-/*버튼 박스*/
-const ButtonBox = styled.div`
+const Form = styled.div`
   display: flex;
-  margin-top: 70px;
+  margin-bottom: 10px;
 `;

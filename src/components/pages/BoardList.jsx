@@ -7,6 +7,7 @@ import { __getPosts } from "../../redux/modules/postsSlice";
 import styled from "styled-components";
 import { Outline } from "../../shared/Outline";
 import StLayout from "../layout/StLayout";
+import CheckToken from "../layout/CheckToken";
 
 function BoardList() {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ function BoardList() {
   };
 
   return (
-    <>
+    <CheckToken>
       {/* category */}
       <select name="menuId" value={category} onChange={onChangeHandler}>
         <option value={"0"}>카테고리</option>
@@ -45,7 +46,7 @@ function BoardList() {
           return <CardBoard key={post.id} post={post} />;
         })}
       </List>
-    </>
+    </CheckToken>
   );
 }
 

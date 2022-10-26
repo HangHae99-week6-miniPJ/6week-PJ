@@ -18,6 +18,12 @@ export default function LabelBottomNavigation() {
     setValue(newValue);
   };
 
+  const logOut = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    navigate("/");
+  };
+
   return (
     <Box
       sx={{
@@ -58,7 +64,12 @@ export default function LabelBottomNavigation() {
         />
       </BottomNavigation>
       <TestDiv>
-        <Button size="medium" variant="outlined" startIcon={<LogoutIcon />}>
+        <Button
+          size="medium"
+          variant="outlined"
+          startIcon={<LogoutIcon />}
+          onClick={logOut}
+        >
           로그아웃
         </Button>
       </TestDiv>
