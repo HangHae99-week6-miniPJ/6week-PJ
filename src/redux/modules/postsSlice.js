@@ -68,7 +68,7 @@ export const __deletePosts = createAsyncThunk(
       axios.delete(`http://43.201.49.125/posts/${payload}`, { headers });
       return thunkAPI.fulfillWithValue(payload);
     } catch (e) {
-      return thunkAPI.rejectWithValue(e.code);
+      return thunkAPI.rejectWithValue(e);
     }
   }
 );
@@ -142,6 +142,10 @@ const postsSlice = createSlice({
       const bye = state.posts.findIndex((post) => post.id === action.payload);
       //id일치시켜서삭제
       state.posts.splice(bye, 1);
+    },
+    [__deletePosts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
 
     //게시글 수정
