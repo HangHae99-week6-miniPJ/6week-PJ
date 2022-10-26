@@ -1,11 +1,14 @@
 import Mymenu from "../mypage/Mymenu";
-import StLayout from "../layout/StLayout";
+import StLayout from "../Layout/StLayout";
+import CheckToken from "../Layout/CheckToken";
 
 function Mypage() {
   return (
-    <StLayout>
-      <Mymenu />
-    </StLayout>
+    <CheckToken>
+      <StLayout>
+        <Mymenu />
+      </StLayout>
+    </CheckToken>
   );
 }
 

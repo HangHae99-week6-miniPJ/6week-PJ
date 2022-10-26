@@ -10,7 +10,6 @@ import styled from "styled-components";
 import Swal from "sweetalert2";
 import AddCommentForm from "../board/comment/AddCommentForm";
 import CommentList from "../board/comment/CommentList";
-
 import { List } from "@mui/material";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -18,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { red } from "@mui/material/colors";
 import { __toggleLike } from "../../redux/modules/likeSlice";
+import CheckToken from "../Layout/CheckToken";
 
 const DetailBoard = () => {
   const dispatch = useDispatch();
@@ -78,7 +78,7 @@ const DetailBoard = () => {
   };
 
   return (
-    <>
+    <CheckToken>
       <List>
         <IconButton aria-label="add to favorites">
           <FavoriteBorderIcon />
@@ -120,7 +120,7 @@ const DetailBoard = () => {
         <AddCommentForm />
         <CommentList />
       </List>
-    </>
+    </CheckToken>
   );
 };
 
