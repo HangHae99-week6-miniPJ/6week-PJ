@@ -64,4 +64,9 @@ table {
 	max-height: 300px;
 }
 
+.preImg {
+	margin: 20px;
+	max-width: 300px;
+	max-height: 300px;
+}
 `;
