@@ -6,39 +6,41 @@ import {
   __deleteComments,
   __editComments,
 } from "../../../redux/modules/commentListSlice";
+import MuButton from "../../elem/MuButton";
 
-const Comment = ({ comment }) => {
+const Comment = ({ comments }) => {
+  console.log(comments);
   const dispatch = useDispatch();
 
   const [isEdit, setIsEdit] = useState(false);
 
   const [editComment, setEditComment] = useState({
-    content: comment.content,
+    comment: comments.comment,
   });
   //새로고침 필요없이 component 랜더링 시키기 위한 State with useEffect.
-  const [renderComment, setRenderComment] = useState(comment.content);
+  const [renderComment, setRenderComment] = useState(comments.comment);
 
   const onCommentEdit = (e) => {
     e.preventDefault();
-    if (editComment.content === "") {
+    if (editComment.comment === "") {
       Swal.fire({
         icon: "error",
         title: "잘못된거같은데요🤭",
         text: "모두 입력해주세요! 😤",
       });
     }
-    if (editComment.content.trim() === "") return;
-    console.log({ ...comment, ...editComment });
-    dispatch(__editComments({ ...comment, ...editComment }));
+    if (editComment.comment.trim() === "") return;
+    console.log({ ...comments, ...editComment });
+    dispatch(__editComments({ ...comments, ...editComment }));
 
     setIsEdit(false);
-    setRenderComment(editComment.content);
+    setRenderComment(editComment.comment);
   };
 
   const onCommentDelete = (e) => {
-    dispatch(__deleteComments(comment.id));
+    dispatch(__deleteComments(comments.commentId));
   };
-  console.log(isEdit);
+
   return (
     <CommentBox>
       {/* isEdit이 true상태일때 = comment 내용을 보여준다. 닉네임도추가가능함. */}
@@ -50,9 +52,9 @@ const Comment = ({ comment }) => {
         <FormBox>
           <input
             type="text"
-            value={editComment.content}
+            value={editComment.comment}
             onChange={(e) => {
-              setEditComment({ ...editComment, content: e.target.value });
+              setEditComment({ ...editComment, comment: e.target.value });
             }}
           />
           <button onClick={onCommentEdit}>수정하기</button>
@@ -64,7 +66,7 @@ const Comment = ({ comment }) => {
       {!isEdit ? (
         <button
           onClick={(e) => {
-            e.stopPropagation();
+            e.stopPropagation(); //이벤트전파방지
             Swal.fire({
               title: "삭제할까요?",
               text: "댓글을 삭제하시겠습니까?",
@@ -97,17 +99,19 @@ const CommentBox = styled.div`
   align-content: center;
   justify-content: flex-start;
   margin-bottom: 10px;
+  width: 60%;
+  gap: 15px;
+
+  border: 2px solid #40424454;
+  border-radius: 10px;
+  font-size: 16px;
 
   button {
-    background-color: #aaa;
-    min-width: 30px;
+    background-color: aquamarine;
+    border-radius: 8px;
+    font-size: 13px;
+    min-width: 80px;
     min-height: 25px;
-    width: 5%;
-    height: 5%;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
     justify-content: flex-end;
   }
 `;
@@ -117,26 +121,24 @@ const FormBox = styled.form`
   align-items: center;
 
   input {
-    max-width: 354px;
-    min-width: 150px;
-    width: 550px;
-    height: 23px;
-    font-size: 15px;
-    padding-bottom: 2px;
-    border: none;
-    border-bottom: 1px solid #bccb;
-    border-right: 1px solid #bccb;
-    margin: 10px;
+    border: 2px solid #40424454;
+    border-radius: 10px;
+    font-size: 16px;
+
+    min-width: 80px;
+    min-height: 25px;
+
+    font-size: 16px;
+    padding-bottom: 5px;
   }
 
   button {
-    background-color: #aaa;
-    min-width: 30px;
+    background-color: aquamarine;
+    min-width: 80px;
     min-height: 25px;
-    width: 25%;
+
     height: 5%;
-    border-radius: 5px;
-    border: none;
+    border-radius: 8px;
     cursor: pointer;
     margin-right: 10px;
     justify-content: flex-end;

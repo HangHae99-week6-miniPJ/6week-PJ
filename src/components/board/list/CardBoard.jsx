@@ -5,27 +5,23 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import IconButton from "@mui/material/IconButton";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { red } from "@mui/material/colors";
+import Swal from "sweetalert2";
 
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { __deletePosts } from "../../../redux/modules/postsSlice";
-import Swal from "sweetalert2";
 
 export default function CardBoard({ post }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onDeleteHandler = (e) => {
-    dispatch(__deletePosts(post.id));
+  const onDeleteHandler = () => {
+    dispatch(__deletePosts(post.postId));
   };
 
   return (
     <>
-      <Card sx={{ maxWidth: 300 }}>
+      <Card sx={{ width: 300, height: 400 }}>
         <CardMedia
           component="img"
           height="200"
@@ -33,8 +29,15 @@ export default function CardBoard({ post }) {
           alt="게시글 이미지"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            제목
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            textOverflow="ellipsis"
+            whiteSpace="nowrap"
+            overflow="hidden"
+          >
+            {post.title}
           </Typography>
           <Typography
             variant="body2"
@@ -43,14 +46,14 @@ export default function CardBoard({ post }) {
             whiteSpace="nowrap"
             overflow="hidden"
           >
-            {post.title}
+            {post.contents}
           </Typography>
         </CardContent>
         <CardActions>
           <Button
             size="small"
             onClick={() => {
-              navigate(`/detail/${post.id}`);
+              navigate(`/detail/${post.postId}`);
             }}
           >
             수정하기
@@ -77,12 +80,6 @@ export default function CardBoard({ post }) {
           >
             삭제하기
           </Button>
-          <IconButton aria-label="add to favorites">
-            <FavoriteBorderIcon />
-            {/* 좋아요 전 후  , 요기 처리는 아직 못하겟음.*/}
-            <FavoriteIcon sx={{ color: red[400] }} />
-          </IconButton>
-          <p>좋아요 숫자</p>
         </CardActions>
       </Card>
     </>

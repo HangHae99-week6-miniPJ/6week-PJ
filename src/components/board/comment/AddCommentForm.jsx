@@ -61,19 +61,20 @@ const CommentInputBox = styled.form`
   input {
     width: 70%;
     height: 30px;
-    border: none;
-    border-bottom: 2px solid #aaa;
+
+    border: 2px solid #40424454;
+    border-radius: 10px;
     font-size: 16px;
     padding-bottom: 5px;
   }
   button {
-    background-color: #aaa;
-    min-width: 30px;
-    min-height: 25px;
-    width: 23%;
+    background-color: aquamarine;
+    min-width: 40px;
+    min-height: 40px;
+    width: 18%;
     height: 5%;
-    border-radius: 5px;
-    border: none;
+    border-radius: 8px;
+
     &:hover {
       background-color: #aaa;
     }

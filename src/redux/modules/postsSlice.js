@@ -1,15 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, { AxiosHeaders } from "axios";
 
 const initialState = {
   posts: [],
-  menuId: 0,
   error: null,
   isLoading: false,
   isSuccess: false,
 };
 
-//const headers = { Authorization: `Bearer ${token}` };
+const headers = {
+  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  refreshToken: `Bearer ${localStorage.getItem("refreshToken")}`,
+};
 
 // ** addPosts ** //
 export const __addPosts = createAsyncThunk(
@@ -19,9 +21,9 @@ export const __addPosts = createAsyncThunk(
     try {
       //토큰
       const data = await axios.post(
-        "http://43.201.49.125/posts/",
-        { data: postsData }
-        // headers
+        "http://43.201.49.125/posts",
+        { ...postsData },
+        { headers }
       );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -34,8 +36,24 @@ export const __getPosts = createAsyncThunk(
   "posts/getPosts",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await axios.get("http://localhost:3001/posts/");
-      return thunkAPI.fulfillWithValue(data);
+      const { data } = await axios.get("http://43.201.49.125/posts");
+      //get은 잘 들어온다.
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+// ** getCategory ** //
+export const __getCategoryPosts = createAsyncThunk(
+  "posts/getCategoryPosts",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await axios.get(
+        `http://43.201.49.125/posts/cate/${payload}`
+      );
+      console.log(data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -47,10 +65,10 @@ export const __deletePosts = createAsyncThunk(
   "posts/deletePosts",
   async (payload, thunkAPI) => {
     try {
-      axios.delete(`http://localhost:3001/posts/${payload}`);
+      axios.delete(`http://43.201.49.125/posts/${payload}`, { headers });
       return thunkAPI.fulfillWithValue(payload);
     } catch (e) {
-      return thunkAPI.rejectWithValue(e.code);
+      return thunkAPI.rejectWithValue(e);
     }
   }
 );
@@ -59,14 +77,15 @@ export const __deletePosts = createAsyncThunk(
 export const __editPosts = createAsyncThunk(
   "posts/editPosts",
   //postId는 payload로 username,title,body,id를 모두가지고 있는 "객체"다.
-  async (postId, thunkAPI) => {
-    //console.log("postID", postId);
+  async (payload, thunkAPI) => {
+    console.log("editpost", payload.title);
     try {
-      const { data } = await axios.patch(
-        //postId에 담긴 객체값을 전부 업데이트한다.
-        `http://localhost:3001/posts/${postId.id}`,
-        postId
+      const { data } = await axios.put(
+        `http://43.201.49.125/posts/${payload.postId}`,
+        { contents: payload.contents, title: payload.title },
+        { headers }
       );
+
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -105,12 +124,28 @@ const postsSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    //카테고리조회
+    [__getCategoryPosts.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getCategoryPosts.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.posts = action.payload;
+    },
+    [__getCategoryPosts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
 
     //게시글삭제
     [__deletePosts.fulfilled]: (state, action) => {
       const bye = state.posts.findIndex((post) => post.id === action.payload);
       //id일치시켜서삭제
       state.posts.splice(bye, 1);
+    },
+    [__deletePosts.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
 
     //게시글 수정
@@ -119,7 +154,7 @@ const postsSlice = createSlice({
     },
     [__editPosts.fulfilled]: (state, action) => {
       const target = state.posts.findIndex(
-        (post) => post.id === action.payload.id
+        (post) => post.postId === action.payload.postId
       );
       state.posts.splice(target, 1, action.payload);
     },

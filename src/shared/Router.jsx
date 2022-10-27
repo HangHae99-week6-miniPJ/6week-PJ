@@ -8,6 +8,7 @@ import AddBoard from "../components/pages/AddBoard";
 import Layout from "../components/Layout/Layout";
 import Kakao from "../components/login/KakaoCallback";
 
+
 function Router() {
   return (
     <BrowserRouter>

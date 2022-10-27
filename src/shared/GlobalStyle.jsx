@@ -65,4 +65,9 @@ table {
 	background-color: black;
 }
 
+.preImg {
+	margin: 20px;
+	max-width: 300px;
+	max-height: 300px;
+}
 `;

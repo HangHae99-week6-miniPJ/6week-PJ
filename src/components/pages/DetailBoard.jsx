@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -6,49 +6,41 @@ import {
   __editPosts,
   __getPosts,
 } from "../../redux/modules/postsSlice";
-
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import AddCommentForm from "../board/comment/AddCommentForm";
 import CommentList from "../board/comment/CommentList";
 import { List } from "@mui/material";
-
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import IconButton from "@mui/material/IconButton";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { red } from "@mui/material/colors";
-import { __toggleLike } from "../../redux/modules/likeSlice";
-import CheckToken from "../layout/CheckToken";
+import StLayout from "../Layout/StLayout";
+import CheckToken from "../Layout/CheckToken";
 
 const DetailBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const like = useSelector((state) => state.likes);
-  console.log(like);
   //edit기본값 false로 해놓음.
   const [isEdit, setIsEdit] = useState(false);
 
   const { id } = useParams();
+  console.log(id);
 
   const { posts } = useSelector((state) => state.posts);
-  const post = posts.find((post) => post.id === +id);
+  const post = posts.find((post) => post.postId === +id);
 
-  // useEffect(() => {
-  //   dispatch(__getPosts);
-  // });
+  console.log("postId", post.postId);
 
-  // const onisLike = async () => {
-  //   dispatch(__toggleLike(likeNumber));
-  // };
+  useEffect(() => {
+    dispatch(__getPosts());
+  }, []);
 
   const [editPost, setEditPost] = useState({
     title: post?.title,
-    body: post?.body,
+    contents: post?.contents,
   });
 
   const onEditHandler = (e) => {
     e.preventDefault();
+
     dispatch(__editPosts({ ...post, ...editPost }));
     setIsEdit(false);
   };
@@ -75,49 +67,46 @@ const DetailBoard = () => {
   };
 
   return (
-    <CheckToken>
-      <List>
-        <IconButton aria-label="add to favorites">
-          <FavoriteBorderIcon />
-          <FavoriteIcon sx={{ color: red[400] }} />
-        </IconButton>
-        <p>좋아요 숫자</p>
-        <BtnBox>
-          <button onClick={() => setIsEdit((prev) => !prev)}>
-            {isEdit ? "취소" : "수정"}
-          </button>
-          {/* deletehandler로 삭제구현. */}
-          <button onClick={onDeleteHandler}>삭제하기</button>
-        </BtnBox>
-        {isEdit ? (
-          <FormBox>
-            <input
-              type="text"
-              value={editPost.title}
-              onChange={(e) => {
-                setEditPost({ ...editPost, title: e.target.value });
-              }}
-            />
-            <textarea
-              type="text"
-              value={editPost.body}
-              onChange={(e) => {
-                setEditPost({ ...editPost, body: e.target.value });
-              }}
-            />
-            <button onClick={onEditHandler}>저장해주새오</button>
-          </FormBox>
-        ) : (
-          <FormBox>
-            <input value={editPost.title} disabled />
-            <textarea value={editPost.body} disabled />
-          </FormBox>
-        )}
+    <StLayout>
+      <CheckToken>
+        <List>
+          <BtnBox>
+            <button onClick={() => setIsEdit((prev) => !prev)}>
+              {isEdit ? "취소" : "수정"}
+            </button>
+            {/* deletehandler로 삭제구현. */}
+            <button onClick={onDeleteHandler}>삭제하기</button>
+          </BtnBox>
+          {isEdit ? (
+            <FormBox>
+              <input
+                type="text"
+                value={editPost.title}
+                onChange={(e) => {
+                  setEditPost({ ...editPost, title: e.target.value });
+                }}
+              />
+              <textarea
+                type="text"
+                value={editPost.contents}
+                onChange={(e) => {
+                  setEditPost({ ...editPost, contents: e.target.value });
+                }}
+              />
+              <button onClick={onEditHandler}>저장해주새오</button>
+            </FormBox>
+          ) : (
+            <FormBox>
+              <input value={editPost.title} disabled />
+              <textarea value={editPost.contents} disabled />
+            </FormBox>
+          )}
 
-        <AddCommentForm />
-        <CommentList />
-      </List>
-    </CheckToken>
+          <AddCommentForm />
+          <CommentList />
+        </List>
+      </CheckToken>
+    </StLayout>
   );
 };
 
@@ -128,30 +117,33 @@ const FormBox = styled.form`
   flex-direction: column;
   margin-top: 20px;
   input {
-    font-size: 28px;
-    height: 35px;
-    padding-left: 5px;
-    padding-bottom: 5px;
-    border: none;
-    border-bottom: 2px solid #aaa;
-    border-right: 2px solid #aaa;
-    margin-bottom: 35px;
+    width: 70%;
+    height: 40px;
+    border: 2px solid #40424454;
+    border-radius: 10px;
+    font-size: 1rem;
+    padding: 5px 10px;
+    margin: auto;
   }
   textarea {
-    height: 100px;
-    font-size: 20px;
-    padding: 8px;
-    border: none;
-    border-bottom: 2px solid #aaa;
-    border-right: 2px solid #aaa;
+    width: 70%;
+    height: 150px;
+    border: 2px solid #40424454;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 10px;
+    resize: none;
+    margin: 10px auto;
+    &:focus {
+      outline: none;
+    }
   }
   button {
     background-color: #aaa;
-    min-width: 30px;
-    min-height: 30px;
-    width: 13%;
-    height: 10%;
-    border-radius: 5px;
+    min-width: 50px;
+    min-height: 50px;
+
+    border-radius: 15px;
     border: none;
     margin: 10px auto;
     &:hover {
@@ -165,4 +157,12 @@ const BtnBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 10px;
+
+  button {
+    width: 80px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: aquamarine;
+  }
 `;

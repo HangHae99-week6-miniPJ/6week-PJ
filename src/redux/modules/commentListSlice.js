@@ -3,9 +3,14 @@ import axios from "axios";
 
 //state
 const initialState = {
-  comments: [],
+  comment: [],
   isLoading: false,
   error: null,
+};
+
+const headers = {
+  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  refreshToken: `Bearer ${localStorage.getItem("refreshToken")}`,
 };
 
 //thunk middleware
@@ -14,12 +19,14 @@ const initialState = {
 export const __addComments = createAsyncThunk(
   "commentList/addComments",
   async (commentData, thunkAPI) => {
-    console.log(commentData);
+    console.log(commentData.postId);
     try {
       const { data } = await axios.post(
-        "http://localhost:3001/comments/",
-        commentData
+        `http://43.201.49.125/comments/${commentData.postId}`,
+        { comment: commentData.comment },
+        { headers }
       );
+      console.log("댓글요", data);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -32,11 +39,14 @@ export const __addComments = createAsyncThunk(
 export const __getComments = createAsyncThunk(
   "commentList/getComments",
   async (payload, thunkAPI) => {
+    console.log("getcomments", payload);
     try {
-      const { data } = await axios.get("http://localhost:3001/comments/");
-      const newData = data.sort((a, b) => b.id - a.id); //내림차순적용.
-      //console.log("newdata", newData);
-      return thunkAPI.fulfillWithValue(newData);
+      const { data } = await axios.get(
+        `http://43.201.49.125/comments/${payload}`
+      );
+      console.log(data);
+
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -47,8 +57,11 @@ export const __getComments = createAsyncThunk(
 export const __deleteComments = createAsyncThunk(
   "commentList/deleteComments",
   async (commentId, thunkAPI) => {
+    console.log(commentId);
     try {
-      await axios.delete(`http://localhost:3001/comments/${commentId}`);
+      await axios.delete(`http://43.201.49.125/comments/${commentId}`, {
+        headers,
+      });
       return thunkAPI.fulfillWithValue(commentId);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -63,7 +76,7 @@ export const __editComments = createAsyncThunk(
     try {
       //commentId.id = id들 중에 id하나.
       await axios.patch(
-        `http://localhost:3001/comments/${commentId.id}`,
+        `http://43.201.49.125/comments/${commentId.id}`,
         commentId
       );
     } catch (error) {
@@ -85,7 +98,7 @@ const commentListSlice = createSlice({
     },
     [__addComments.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments.unshift(action.payload);
+      state.comment.unshift(action.payload);
     },
     [__addComments.rejected]: (state, action) => {
       state.isLoading = false;
@@ -96,8 +109,9 @@ const commentListSlice = createSlice({
       state.isLoading = true;
     },
     [__getComments.fulfilled]: (state, action) => {
+      console.log("action", action.payload);
       state.isLoading = false;
-      state.comments = action.payload;
+      state.comment = action.payload;
     },
     [__getComments.rejected]: (state, action) => {
       state.isLoading = false;
@@ -111,10 +125,10 @@ const commentListSlice = createSlice({
     [__editComments.fulfilled]: (state, action) => {
       state.isLoading = false;
       console.log(action.payload);
-      const target = state.comments.findIndex(
+      const target = state.comment.findIndex(
         (comment) => comment.id === action.payload.id
       );
-      state.comments.splice(target, 1, action.payload);
+      state.comment.splice(target, 1, action.payload);
     },
     [__editComments.rejected]: (state, action) => {
       state.isLoading = false;
@@ -126,10 +140,10 @@ const commentListSlice = createSlice({
     },
     [__deleteComments.fulfilled]: (state, action) => {
       state.isLoading = false;
-      const target = state.comments.findIndex(
+      const target = state.comment.findIndex(
         (comment) => comment.id === action.payload
       );
-      state.comments.splice(target, 1);
+      state.comment.splice(target, 1);
     },
     [__deleteComments.rejected]: (state, action) => {
       state.isLoading = false;

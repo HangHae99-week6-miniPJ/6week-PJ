@@ -8,26 +8,26 @@ import Comment from "./Comment";
 const CommentList = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { comments } = useSelector((state) => state.commentList);
+  const { comment } = useSelector((state) => state.commentList);
+
+  console.log(comment);
 
   useEffect(() => {
-    dispatch(__getComments());
+    dispatch(__getComments(+id));
   }, [dispatch]);
 
-  console.log(comments);
   return (
     <Commentblock>
-      {comments.map((comment) => {
-        return comment.postId === Number(id) ? (
-          <Comment key={comment.id} comment={comment}>
-            댓글
-          </Comment>
-        ) : null;
+      {comment?.map((comments) => {
+        return <Comment key={comments?.commentId} comments={comments} />;
       })}
     </Commentblock>
   );
 };
 
+// {comment?.map((comments, i) => {
+//   return <Comment key={i} comment={comments} />;
+// })}
 export default CommentList;
 
 const Commentblock = styled.div`
