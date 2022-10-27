@@ -21,7 +21,7 @@ export default function LabelBottomNavigation() {
 
   const logOut = async() => {
     const SERVER = process.env.REACT_APP_SERVER;
-    const refreshToken = localStorage.setItem("refreshToken");
+    const refreshToken = localStorage.getItem("refreshToken");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
     await axios({
