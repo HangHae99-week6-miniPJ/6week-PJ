@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 const btnStyle = {
   _padding: "8px",
