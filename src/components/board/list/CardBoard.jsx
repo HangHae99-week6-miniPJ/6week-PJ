@@ -11,8 +11,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { __deletePosts } from "../../../redux/modules/postsSlice";
 
-import { useState } from "react";
-
 export default function CardBoard({ post }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,7 +21,7 @@ export default function CardBoard({ post }) {
 
   return (
     <>
-      <Card sx={{ maxWidth: 300 }}>
+      <Card sx={{ Width: 300 }}>
         <CardMedia
           component="img"
           height="200"
@@ -31,7 +29,14 @@ export default function CardBoard({ post }) {
           alt="게시글 이미지"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            textOverflow="ellipsis"
+            whiteSpace="nowrap"
+            overflow="hidden"
+          >
             {post.title}
           </Typography>
           <Typography

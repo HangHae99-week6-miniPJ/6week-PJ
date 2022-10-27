@@ -8,26 +8,26 @@ import { __addComments } from "../../../redux/modules/commentListSlice";
 const AddCommentForm = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-
   const initialState = {
-    comment: "",
-    postId: id,
+    content: "",
+    id: 0,
+    postId: +id,
   };
 
-  const [comments, setComment] = useState(initialState);
+  const [comment, setComment] = useState(initialState);
 
   const onSubmitComment = (e) => {
     e.preventDefault();
-    if (comments.comment === "") {
+    if (comment.content === "") {
       Swal.fire({
         icon: "error",
         title: "비었습니다만?",
         text: "입력해주세오!😥",
       });
     }
-    if (comments.comment.trim() === "") return;
+    if (comment.content.trim() === "") return;
 
-    dispatch(__addComments({ ...comments }));
+    dispatch(__addComments({ ...comment, id: Date.now() }));
     setComment(initialState);
   };
 
@@ -36,12 +36,12 @@ const AddCommentForm = () => {
       <input
         maxLength="30"
         type="text"
-        value={comments.comment}
+        value={comment.content}
         placeholder="댓글입력좀ㅎ"
         onChange={(e) => {
           setComment({
-            ...comments,
-            comment: e.target.value,
+            ...comment,
+            content: e.target.value,
           });
         }}
       />
@@ -61,19 +61,20 @@ const CommentInputBox = styled.form`
   input {
     width: 70%;
     height: 30px;
-    border: none;
-    border-bottom: 2px solid #aaa;
+
+    border: 2px solid #40424454;
+    border-radius: 10px;
     font-size: 16px;
     padding-bottom: 5px;
   }
   button {
-    background-color: #aaa;
-    min-width: 30px;
-    min-height: 25px;
-    width: 23%;
+    background-color: aquamarine;
+    min-width: 40px;
+    min-height: 40px;
+    width: 18%;
     height: 5%;
-    border-radius: 5px;
-    border: none;
+    border-radius: 8px;
+
     &:hover {
       background-color: #aaa;
     }

@@ -6,6 +6,7 @@ import {
   __deleteComments,
   __editComments,
 } from "../../../redux/modules/commentListSlice";
+import MuButton from "../../elem/MuButton";
 
 const Comment = ({ comments }) => {
   console.log(comments);
@@ -65,7 +66,7 @@ const Comment = ({ comments }) => {
       {!isEdit ? (
         <button
           onClick={(e) => {
-            e.stopPropagation();
+            e.stopPropagation(); //이벤트전파방지
             Swal.fire({
               title: "삭제할까요?",
               text: "댓글을 삭제하시겠습니까?",
@@ -98,17 +99,19 @@ const CommentBox = styled.div`
   align-content: center;
   justify-content: flex-start;
   margin-bottom: 10px;
+  width: 60%;
+  gap: 15px;
+
+  border: 2px solid #40424454;
+  border-radius: 10px;
+  font-size: 16px;
 
   button {
-    background-color: #aaa;
-    min-width: 30px;
+    background-color: aquamarine;
+    border-radius: 8px;
+    font-size: 13px;
+    min-width: 80px;
     min-height: 25px;
-    width: 5%;
-    height: 5%;
-    border-rdius: 5px;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
     justify-content: flex-end;
   }
 `;
@@ -118,26 +121,24 @@ const FormBox = styled.form`
   align-items: center;
 
   input {
-    max-width: 354px;
-    min-width: 150px;
-    width: 550px;
-    height: 23px;
-    font-size: 15px;
-    padding-bottom: 2px;
-    border: none;
-    border-bottom: 1px solid #bccb;
-    border-right: 1px solid #bccb;
-    margin: 10px;
+    border: 2px solid #40424454;
+    border-radius: 10px;
+    font-size: 16px;
+
+    min-width: 80px;
+    min-height: 25px;
+
+    font-size: 16px;
+    padding-bottom: 5px;
   }
 
   button {
-    background-color: #aaa;
-    min-width: 30px;
+    background-color: aquamarine;
+    min-width: 80px;
     min-height: 25px;
-    width: 25%;
+
     height: 5%;
-    border-radius: 5px;
-    border: none;
+    border-radius: 8px;
     cursor: pointer;
     margin-right: 10px;
     justify-content: flex-end;
