@@ -10,8 +10,6 @@ const CommentList = () => {
   const dispatch = useDispatch();
   const { comment } = useSelector((state) => state.commentList);
 
-  console.log(comment);
-
   useEffect(() => {
     dispatch(__getComments(+id));
   }, [dispatch]);

@@ -9,9 +9,8 @@ import {
 import MuButton from "../../elem/MuButton";
 
 const Comment = ({ comments }) => {
-  console.log(comments);
   const dispatch = useDispatch();
-
+  console.log(comments);
   const [isEdit, setIsEdit] = useState(false);
 
   const [editComment, setEditComment] = useState({
@@ -140,7 +139,5 @@ const FormBox = styled.form`
     height: 5%;
     border-radius: 8px;
     cursor: pointer;
-    margin-right: 10px;
-    justify-content: flex-end;
   }
 `;
