@@ -12,6 +12,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
+// import dotenv from "dotenv";
+// dotenv.config();
+
+
 const SignUpModal = () => {
   //모달 열고 닫기 기능
   const [open, setOpen] = useState(false);
@@ -76,11 +80,20 @@ const SignUpModal = () => {
     });
   };
 
+  
+  const kakaoBtn = () => {
+    const REDIRECT_URL = 'http://' + process.env.REACT_APP_REDIRECT_FRONT
+    const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
+    const url = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URL}&response_type=code`
+    window.location.href = url;
+  }
+
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
         회원가입 하기
       </Button>
+      <KakaoBtn src="/image/kakaoBtn.png" onClick={kakaoBtn}/>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>회원가입하기</DialogTitle>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -201,4 +214,14 @@ const Dup = styled.div`
 /*버튼 사이즈 조절 */
 const StBtn = styled(Button)`
   width: 100px;
+`;
+
+/* 카카오로그인 버튼 */
+const KakaoBtn = styled.img`
+  cursor: pointer;
+  position: relative;
+  left: 10px;
+  top: 14px;
+  width: 150px;
+  height: 36px;
 `;

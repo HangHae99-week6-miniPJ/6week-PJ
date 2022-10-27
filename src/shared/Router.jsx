@@ -5,7 +5,8 @@ import BoardList from "../components/pages/BoardList";
 import DetailBoard from "../components/pages/DetailBoard";
 import Mypage from "../components/pages/Mypage";
 import AddBoard from "../components/pages/AddBoard";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/Layout/Layout";
+import Kakao from "../components/login/KakaoCallback";
 
 function Router() {
   return (
@@ -18,6 +19,7 @@ function Router() {
           <Route path="/detail/:id" element={<DetailBoard />} />
           <Route path="/add-board" element={<AddBoard />} />
           <Route path="/mypage" element={<Mypage />} />
+          <Route path="/kakao/callback" element={<Kakao/>} />
         </Routes>
       </Layout>
     </BrowserRouter>
