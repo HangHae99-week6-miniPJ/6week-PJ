@@ -6,7 +6,6 @@ import {
   __deleteComments,
   __editComments,
 } from "../../../redux/modules/commentListSlice";
-import MuButton from "../../elem/MuButton";
 
 const Comment = ({ comments }) => {
   const dispatch = useDispatch();

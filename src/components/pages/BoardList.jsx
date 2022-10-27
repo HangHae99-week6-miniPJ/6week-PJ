@@ -6,7 +6,7 @@ import { __getCategoryPosts, __getPosts } from "../../redux/modules/postsSlice";
 // Css영역 import
 import styled from "styled-components";
 import { Outline } from "../../shared/Outline";
-import StLayout from "../Layout/StLayout";
+import OutLayout from "../Layout/OutLayout";
 
 function BoardList() {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ function BoardList() {
   };
 
   return (
-    <StLayout>
+    <OutLayout>
       <List>
         <Select name="categoryId" value={category} onChange={onChangeHandler}>
           <option value={0} disabled>
@@ -51,7 +51,7 @@ function BoardList() {
           })}
         </CardBox>
       </List>
-    </StLayout>
+    </OutLayout>
   );
 }
 

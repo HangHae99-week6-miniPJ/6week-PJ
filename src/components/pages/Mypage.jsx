@@ -1,13 +1,13 @@
 import CheckToken from "../Layout/CheckToken";
-import StLayout from "../Layout/StLayout";
+import OutLayout from "../Layout/OutLayout";
 import Myprofile from "../mypage/Myprofile";
 
 function Mypage() {
   return (
     <CheckToken>
-      <StLayout>
+      <OutLayout>
         <Myprofile />
-      </StLayout>
+      </OutLayout>
     </CheckToken>
   );
 }

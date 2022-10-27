@@ -12,17 +12,12 @@ import AddCommentForm from "../board/comment/AddCommentForm";
 import CommentList from "../board/comment/CommentList";
 import { List } from "@mui/material";
 
-import { __toggleLike } from "../../redux/modules/likeSlice";
 import CheckToken from "../Layout/CheckToken";
-
-import MuButton from "../elem/MuButton";
-import StLayout from "../Layout/StLayout";
+import OutLayout from "../Layout/OutLayout";
 
 const DetailBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const like = useSelector((state) => state.likes);
 
   //edit기본값 false로 해놓음.
   const [isEdit, setIsEdit] = useState(false);
@@ -77,7 +72,7 @@ const DetailBoard = () => {
   };
 
   return (
-    <StLayout>
+    <OutLayout>
       <CheckToken>
         <List>
           <BtnBox>
@@ -116,7 +111,7 @@ const DetailBoard = () => {
           <CommentList />
         </List>
       </CheckToken>
-    </StLayout>
+    </OutLayout>
   );
 };
 

@@ -12,7 +12,7 @@ import { Outline } from "../../shared/Outline";
 import Swal from "sweetalert2";
 import MuButton from "../elem/MuButton";
 import { Flexbox } from "../../shared/Flexbox";
-import StLayout from "../Layout/StLayout";
+import OutLayout from "../Layout/OutLayout";
 
 const AddBoard = () => {
   const dispatch = useDispatch();
@@ -96,7 +96,7 @@ const AddBoard = () => {
   };
 
   return (
-    <StLayout>
+    <OutLayout>
       <List>
         <span>게시글 작성하기🖍</span>
         <StForm as="form" onSubmit={onSubmitHandler}>
@@ -151,7 +151,7 @@ const AddBoard = () => {
           <MuButton> 추가하기</MuButton>
         </StForm>
       </List>
-    </StLayout>
+    </OutLayout>
   );
 };
 
