@@ -11,9 +11,8 @@ import Swal from "sweetalert2";
 import AddCommentForm from "../board/comment/AddCommentForm";
 import CommentList from "../board/comment/CommentList";
 import { List } from "@mui/material";
-
-import CheckToken from "../Layout/CheckToken";
 import OutLayout from "../Layout/OutLayout";
+import IsToken from "../Layout/IsToken";
 
 const DetailBoard = () => {
   const dispatch = useDispatch();
@@ -72,8 +71,8 @@ const DetailBoard = () => {
   };
 
   return (
-    <OutLayout>
-      <CheckToken>
+    <IsToken>
+      <OutLayout>
         <List>
           <BtnBox>
             <button onClick={() => setIsEdit((prev) => !prev)}>
@@ -110,8 +109,8 @@ const DetailBoard = () => {
           <AddCommentForm />
           <CommentList />
         </List>
-      </CheckToken>
-    </OutLayout>
+      </OutLayout>
+    </IsToken>
   );
 };
 

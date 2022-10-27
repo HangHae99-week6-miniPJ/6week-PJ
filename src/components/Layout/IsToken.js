@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-function CheckToken({ children }) {
+function IsToken({ children }) {
   const navigate = useNavigate();
   useEffect(() => {
     if (localStorage.getItem("accessToken") === null) {
@@ -16,4 +16,4 @@ function CheckToken({ children }) {
   return <>{children}</>;
 }
 
-export default CheckToken;
+export default IsToken;

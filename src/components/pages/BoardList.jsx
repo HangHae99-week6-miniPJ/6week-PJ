@@ -7,6 +7,7 @@ import { __getCategoryPosts, __getPosts } from "../../redux/modules/postsSlice";
 import styled from "styled-components";
 import { Outline } from "../../shared/Outline";
 import OutLayout from "../Layout/OutLayout";
+import IsToken from "../Layout/IsToken";
 
 function BoardList() {
   const dispatch = useDispatch();
@@ -32,26 +33,28 @@ function BoardList() {
   };
 
   return (
-    <OutLayout>
-      <List>
-        <Select name="categoryId" value={category} onChange={onChangeHandler}>
-          <option value={0} disabled>
-            카테고리
-          </option>
-          <option value={1}>자기관리</option>
-          <option value={2}>식습관</option>
-          <option value={3}>마음챙김</option>
-          <option value={4}>취미</option>
-          <option value={5}>기타</option>
-        </Select>
-        <span>게시글 모아보📝</span>
-        <CardBox>
-          {posts?.map((post) => {
-            return <CardBoard key={post.postId} post={post} />;
-          })}
-        </CardBox>
-      </List>
-    </OutLayout>
+    <IsToken>
+      <OutLayout>
+        <List>
+          <Select name="categoryId" value={category} onChange={onChangeHandler}>
+            <option value={0} disabled>
+              카테고리
+            </option>
+            <option value={1}>자기관리</option>
+            <option value={2}>식습관</option>
+            <option value={3}>마음챙김</option>
+            <option value={4}>취미</option>
+            <option value={5}>기타</option>
+          </Select>
+          <span>게시글 모아보📝</span>
+          <CardBox>
+            {posts?.map((post) => {
+              return <CardBoard key={post.postId} post={post} />;
+            })}
+          </CardBox>
+        </List>
+      </OutLayout>
+    </IsToken>
   );
 }
 

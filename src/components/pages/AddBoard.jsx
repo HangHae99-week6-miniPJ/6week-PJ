@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import MuButton from "../elem/MuButton";
 import { Flexbox } from "../../shared/Flexbox";
 import OutLayout from "../Layout/OutLayout";
+import IsToken from "../Layout/IsToken";
 
 const AddBoard = () => {
   const dispatch = useDispatch();
@@ -96,62 +97,68 @@ const AddBoard = () => {
   };
 
   return (
-    <OutLayout>
-      <List>
-        <span>게시글 작성하기🖍</span>
-        <StForm as="form" onSubmit={onSubmitHandler}>
-          <STtag>
-            <Select
-              name="categoryId"
-              value={addBoard.categoryId}
+    <IsToken>
+      <OutLayout>
+        <List>
+          <span>게시글 작성하기🖍</span>
+          <StForm as="form" onSubmit={onSubmitHandler}>
+            <STtag>
+              <Select
+                name="categoryId"
+                value={addBoard.categoryId}
+                onChange={onChangeHandler}
+              >
+                <option value="" disabled>
+                  카테고리
+                </option>
+                <option value={1}>자기관리</option>
+                <option value={2}>식습관</option>
+                <option value={3}>마음챙김</option>
+                <option value={4}>취미</option>
+                <option value={5}>기타</option>
+              </Select>
+              <Input
+                type="text"
+                name="title"
+                value={addBoard.title}
+                onChange={onChangeHandler}
+                placeholder="제목을 입력해 주세요. (20자 이내)"
+                maxLength="20"
+              />
+            </STtag>
+            <Textarea
+              name="contents"
+              id="inputbody"
+              cols="20"
+              rows="10"
+              value={addBoard.contents}
               onChange={onChangeHandler}
-            >
-              <option value="" disabled>
-                카테고리
-              </option>
-              <option value={1}>자기관리</option>
-              <option value={2}>식습관</option>
-              <option value={3}>마음챙김</option>
-              <option value={4}>취미</option>
-              <option value={5}>기타</option>
-            </Select>
-            <Input
-              type="text"
-              name="title"
-              value={addBoard.title}
-              onChange={onChangeHandler}
-              placeholder="제목을 입력해 주세요. (20자 이내)"
-              maxLength="20"
+              placeholder="내용을 입력해 주세요. (500자 이내)"
+              maxLength="500"
             />
-          </STtag>
-          <Textarea
-            name="contents"
-            id="inputbody"
-            cols="20"
-            rows="10"
-            value={addBoard.contents}
-            onChange={onChangeHandler}
-            placeholder="내용을 입력해 주세요. (500자 이내)"
-            maxLength="500"
-          />
-          <ImgBox>
-            <input
-              type="file"
-              onChange={(e) => {
-                encodeFileToBase64(e.target.files[0]);
-              }}
-            />
-            <div className="preview">
-              {imageSrc && (
-                <img src={imageSrc} alt="이미지 미리보기" className="preImg" />
-              )}
-            </div>
-            <p>이미지 미리보기</p>
-          </ImgBox>
-          <MuButton> 추가하기</MuButton>
-        </StForm>
-      </List>
-    </OutLayout>
+            <ImgBox>
+              <input
+                type="file"
+                onChange={(e) => {
+                  encodeFileToBase64(e.target.files[0]);
+                }}
+              />
+              <div className="preview">
+                {imageSrc && (
+                  <img
+                    src={imageSrc}
+                    alt="이미지 미리보기"
+                    className="preImg"
+                  />
+                )}
+              </div>
+              <p>이미지 미리보기</p>
+            </ImgBox>
+            <MuButton> 추가하기</MuButton>
+          </StForm>
+        </List>
+      </OutLayout>
+    </IsToken>
   );
 };
 

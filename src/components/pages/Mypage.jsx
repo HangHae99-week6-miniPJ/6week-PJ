@@ -1,14 +1,14 @@
-import CheckToken from "../Layout/CheckToken";
+import IsToken from "../Layout/IsToken";
 import OutLayout from "../Layout/OutLayout";
 import Myprofile from "../mypage/Myprofile";
 
 function Mypage() {
   return (
-    <CheckToken>
+    <IsToken>
       <OutLayout>
         <Myprofile />
       </OutLayout>
-    </CheckToken>
+    </IsToken>
   );
 }
 
