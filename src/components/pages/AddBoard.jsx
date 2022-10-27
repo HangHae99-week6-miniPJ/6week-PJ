@@ -9,10 +9,10 @@ import imageCompression from "browser-image-compression";
 //css
 import styled from "styled-components";
 import { Outline } from "../../shared/Outline";
-import StLayout from "../Layout/StLayout";
 import Swal from "sweetalert2";
 import MuButton from "../elem/MuButton";
 import { Flexbox } from "../../shared/Flexbox";
+import StLayout from "../Layout/StLayout";
 
 const AddBoard = () => {
   const dispatch = useDispatch();

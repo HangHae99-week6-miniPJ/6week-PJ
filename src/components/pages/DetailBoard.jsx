@@ -11,12 +11,18 @@ import Swal from "sweetalert2";
 import AddCommentForm from "../board/comment/AddCommentForm";
 import CommentList from "../board/comment/CommentList";
 import { List } from "@mui/material";
-import StLayout from "../Layout/StLayout";
+
+import { __toggleLike } from "../../redux/modules/likeSlice";
 import CheckToken from "../Layout/CheckToken";
+
+import MuButton from "../elem/MuButton";
+import StLayout from "../Layout/StLayout";
 
 const DetailBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const like = useSelector((state) => state.likes);
 
   //edit기본값 false로 해놓음.
   const [isEdit, setIsEdit] = useState(false);
@@ -32,6 +38,10 @@ const DetailBoard = () => {
   useEffect(() => {
     dispatch(__getPosts());
   }, []);
+
+  // const onisLike = async () => {
+  //   dispatch(__toggleLike(likeNumber));
+  // };
 
   const [editPost, setEditPost] = useState({
     title: post?.title,

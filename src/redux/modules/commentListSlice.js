@@ -44,6 +44,8 @@ export const __getComments = createAsyncThunk(
       const { data } = await axios.get(
         `http://43.201.49.125/comments/${payload}`
       );
+      console.log(data);
+
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -72,9 +74,14 @@ export const __editComments = createAsyncThunk(
   "commentList/editComments",
   async (commentId, thunkAPI) => {
     try {
-      await axios.put(`http://43.201.49.125/comments/${commentId}`, commentId, {
-        headers,
-      });
+      //commentId.id = id들 중에 id하나.
+      await axios.patch(
+        `http://43.201.49.125/comments/${commentId}`,
+        commentId,
+        {
+          headers,
+        }
+      );
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -105,7 +112,7 @@ const commentListSlice = createSlice({
       state.isLoading = true;
     },
     [__getComments.fulfilled]: (state, action) => {
-      console.log("action", action);
+      console.log("action", action.payload);
       state.isLoading = false;
       state.comment = action.payload;
     },
@@ -114,13 +121,14 @@ const commentListSlice = createSlice({
       state.error = action.payload;
     },
 
-    // ** putComments ** //
+    // ** patchComments ** //
     [__editComments.pending]: (state) => {
       state.isLoading = true;
     },
     [__editComments.fulfilled]: (state, action) => {
-      console.log("에딧액션", action);
+      console.log("action", action.payload);
       state.isLoading = false;
+      console.log(action.payload);
       const target = state.comment.findIndex(
         (comment) => comment.id === action.payload.id
       );

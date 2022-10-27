@@ -10,7 +10,6 @@ import MuButton from "../../elem/MuButton";
 
 const Comment = ({ comments }) => {
   const dispatch = useDispatch();
-  console.log(comments);
   const [isEdit, setIsEdit] = useState(false);
 
   const [editComment, setEditComment] = useState({
