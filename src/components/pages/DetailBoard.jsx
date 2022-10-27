@@ -14,8 +14,11 @@ import { List } from "@mui/material";
 
 import { __toggleLike } from "../../redux/modules/likeSlice";
 import CheckToken from "../Layout/CheckToken";
+<<<<<<< HEAD
 import StLayout from "../Layout/StLayout";
 import MuButton from "../elem/MuButton";
+=======
+>>>>>>> 4632aeec8120cc0758fc85193045a61ab2291d3d
 
 const DetailBoard = () => {
   const dispatch = useDispatch();

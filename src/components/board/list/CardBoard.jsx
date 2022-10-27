@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Swal from "sweetalert2";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { __deletePosts } from "../../../redux/modules/postsSlice";
 
@@ -21,7 +21,7 @@ export default function CardBoard({ post }) {
 
   return (
     <>
-      <Card sx={{ Width: 300 }}>
+      <Card sx={{ width: 300, height: 400 }}>
         <CardMedia
           component="img"
           height="200"

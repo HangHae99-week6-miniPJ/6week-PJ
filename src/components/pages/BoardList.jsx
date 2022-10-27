@@ -7,20 +7,15 @@ import { __getCategoryPosts, __getPosts } from "../../redux/modules/postsSlice";
 import styled from "styled-components";
 import { Outline } from "../../shared/Outline";
 import StLayout from "../Layout/StLayout";
+<<<<<<< HEAD
+=======
+import { flexbox } from "@mui/system";
+>>>>>>> 4632aeec8120cc0758fc85193045a61ab2291d3d
 
 function BoardList() {
   const dispatch = useDispatch();
-
   const [category, setCategory] = useState(0);
-
   const { posts } = useSelector((state) => state.posts);
-
-  //const accessToken = window.localstroage.accesstoken
-  // axios('url'),{
-  //   Headers: {authorization : bearer $ accessToken}
-  // }
-
-  //reducer생성, category===0, getPosts x-> categorypost:id
 
   //카테고리변경될때마다 랜더링.
   useEffect(() => {
@@ -42,6 +37,7 @@ function BoardList() {
 
   return (
     <StLayout>
+<<<<<<< HEAD
       {/* category */}
       <select name="categoryId" value={category} onChange={onChangeHandler}>
         <option value={0} disabled>
@@ -54,25 +50,31 @@ function BoardList() {
         <option value={5}>기타</option>
       </select>
       {/* Card */}
+=======
+>>>>>>> 4632aeec8120cc0758fc85193045a61ab2291d3d
       <List>
-        {posts?.map((post) => {
-          return <CardBoard key={post.postId} post={post} />;
-        })}
+        <Select name="categoryId" value={category} onChange={onChangeHandler}>
+          <option value={0} disabled>
+            카테고리
+          </option>
+          <option value={1}>자기관리</option>
+          <option value={2}>식습관</option>
+          <option value={3}>마음챙김</option>
+          <option value={4}>취미</option>
+          <option value={5}>기타</option>
+        </Select>
+        <span>게시글 작성하기🖍</span>
+        <CardBox>
+          {posts?.map((post) => {
+            return <CardBoard key={post.postId} post={post} />;
+          })}
+        </CardBox>
       </List>
     </StLayout>
   );
 }
 
 export default BoardList;
-
-const List = styled.div`
-  ${Outline};
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding-top: 50px;
-`;
 
 const Select = styled.select`
   width: 50%;
@@ -84,49 +86,24 @@ const Select = styled.select`
   margin: auto;
 `;
 
-// /*입력값 텍스트*/
-// const StText = styled.div`
-//   font-size: 25px;
-//   font-weight: 500;
-//   margin: 10px 0px 10px 0px;
-// `;
+const List = styled.div`
+  ${Outline};
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  flex-direction: column;
+  align-items: center;
+  span {
+    font-weight: bolder;
+    font-size: 2rem;
+    margin: 30px;
+  }
+`;
 
-// /*입력값 폼 스타일*/
-// const StForm = styled.div`
-//   width: 100%;
-//   height: 100%;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-around;
-//   align-items: center;
-// `;
-
-// /*제목창 스타일*/
-// const Input = styled.input`
-//   width: 100%;
-//   height: 40px;
-//   border: 2px solid #40424454;
-//   border-radius: 10px;
-//   font-size: 16px;
-//   padding: 5px 10px;
-// `;
-
-// /*내용창 스타일 */
-// const Textarea = styled.textarea`
-//   width: 100%;
-//   border: 2px solid #40424454;
-//   padding: 12px;
-//   font-size: 16px;
-//   border-radius: 10px;
-//   resize: none;
-//   &:focus {
-//     outline: none;
-//   }
-// `;
-
-// /*전체 박스*/
-// const StBox = styled.div`
-//   width: 100%;
-// `;
-
-/*색상선택*/
+const CardBox = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+`;
