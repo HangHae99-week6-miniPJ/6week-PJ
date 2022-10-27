@@ -1,4 +1,5 @@
 import * as React from "react";
+import axios from "axios";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import LibraryAddSharpIcon from "@mui/icons-material/LibraryAddSharp";
@@ -18,9 +19,15 @@ export default function LabelBottomNavigation() {
     setValue(newValue);
   };
 
-  const logOut = () => {
+  const logOut = async() => {
+    const SERVER = process.env.REACT_APP_SERVER;
+    const refreshToken = localStorage.setItem("refreshToken");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    await axios({
+      method: "GET",
+      url: `http://${SERVER}/signout/${refreshToken}`
+    });
     navigate("/");
   };
 

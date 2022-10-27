@@ -17,6 +17,7 @@ import axios from "axios";
 
 
 const SignUpModal = () => {
+  const SERVER = process.env.REACT_APP_SERVER;
   //모달 열고 닫기 기능
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -41,7 +42,7 @@ const SignUpModal = () => {
   //회원가입 데이터 전송
   const onSubmit = (data) => {
     axios
-      .post("http://43.201.49.125/signup", data)
+      .post(`http://${SERVER}/signup`, data)
       .then((res) => {
         if (res.data.message === "SUCCESS") {
           alert("회원가입에 성공했습니다.");
@@ -59,7 +60,7 @@ const SignUpModal = () => {
   //닉네임 중복검사 진행하기
   const nickDup = () => {
     const nickname = watch("nickname");
-    axios.post("http://43.201.49.125/dup", { value: nickname }).then((res) => {
+    axios.post(`http://${SERVER}/dup`, { value: nickname }).then((res) => {
       if (res.data.result === true) {
         alert("중복된 닉네임 입니다.");
       } else {
@@ -71,7 +72,7 @@ const SignUpModal = () => {
   //아이디 중복검사 진행하기
   const userDup = () => {
     const username = watch("username");
-    axios.post("http://43.201.49.125/dup", { value: username }).then((res) => {
+    axios.post(`http://${SERVER}/dup`, { value: username }).then((res) => {
       if (res.data.result === true) {
         alert("중복된 아이디 입니다.");
       } else {

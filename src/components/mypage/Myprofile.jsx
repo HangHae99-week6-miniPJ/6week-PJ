@@ -16,6 +16,7 @@ const btnStyle = {
 };
 
 function Myprofile() {
+  const SERVER = process.env.REACT_APP_SERVER;
   const [user, setUser] = useState([]);
   const [userimg, setUserimg] = useState([]);
 
@@ -24,7 +25,7 @@ function Myprofile() {
 
   //유저 데이터 가져오기
   useEffect(() => {
-    const req1 = axios.get("http://43.201.49.125/user", {
+    const req1 = axios.get(`http://${SERVER}/user`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         refreshToken: `Bearer ${localStorage.getItem("refreshToken")}`,
@@ -64,7 +65,7 @@ function Myprofile() {
       refreshToken: `Bearer ${localStorage.getItem("refreshToken")}`,
     };
     axios
-      .patch("http://43.201.49.125/profile/image", formData, { headers })
+      .patch(`http://${SERVER}/profile/image`, formData, { headers })
       .then((res) => {
         if (res.data.message === "SUCCESS") {
           window.location.replace("/mypage");
@@ -87,7 +88,7 @@ function Myprofile() {
     };
     axios
       .patch(
-        "http://43.201.49.125/profile/nickname",
+        `http://${SERVER}/profile/nickname`,
         { nickname: nickname },
         { headers }
       )
